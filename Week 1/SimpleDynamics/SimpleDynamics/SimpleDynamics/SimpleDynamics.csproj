@@ -45,25 +45,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AABB.cs" />
-    <Compile Include="Box.cs" />
-    <Compile Include="Circle.cs" />
+    <Compile Include="Shape\Box.cs" />
+    <Compile Include="Shape\Circle.cs" />
     <Compile Include="InvertedPendulum.cs" />
-    <Compile Include="MainWindow.cs">
+    <Compile Include="System code\MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainWindow.Designer.cs">
+    <Compile Include="System code\MainWindow.Designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Matrix2.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="System code\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RigidBody.cs" />
-    <Compile Include="Shape.cs" />
-    <Compile Include="SimpleRenderer.cs" />
+    <Compile Include="Shape\Shape.cs" />
+    <Compile Include="System code\SimpleRenderer.cs" />
     <Compile Include="SpringJoint.cs" />
     <Compile Include="Vector2D.cs" />
     <Compile Include="World.cs" />
-    <EmbeddedResource Include="MainWindow.resx">
+    <EmbeddedResource Include="System code\MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -75,6 +75,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

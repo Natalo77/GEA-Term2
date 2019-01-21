@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="SimpleDynamics.AABB" Collapsed="true">
+    <Position X="5.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>AABB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimpleDynamics.Box" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAEAAAAAAAAAA=</HashCode>
+      <FileName>Shape\Box.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimpleDynamics.Circle" Collapsed="true">
+    <Position X="2.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAIAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Shape\Circle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimpleDynamics.InvertedPendulum" Collapsed="true">
+    <Position X="7" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAgAAAAAAAAAAABABAAAAAAAAAAIAAAACAAgAA=</HashCode>
+      <FileName>InvertedPendulum.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimpleDynamics.MainWindow" Collapsed="true">
+    <Position X="8.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAgASAAACAAAACCAAACgAAGAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MainWindow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimpleDynamics.Matrix2" Collapsed="true">
+    <Position X="10.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAAIAAAAAAAAAAAAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>Matrix2.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimpleDynamics.Program" Collapsed="true">
+    <Position X="5.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimpleDynamics.RigidBody" Collapsed="true">
+    <Position X="8.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAIAAAAAAAgAAAAAAABAFgAAAAAYAAAAACIAAA=</HashCode>
+      <FileName>RigidBody.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimpleDynamics.Shape" Collapsed="true">
+    <Position X="1.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAABAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Shape\Shape.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimpleDynamics.SimpleRenderer" Collapsed="true">
+    <Position X="5.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAggAAAAAAAAAAAAAAAAAAAEAAAAIAAAA=</HashCode>
+      <FileName>SimpleRenderer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimpleDynamics.SpringJoint" Collapsed="true">
+    <Position X="7" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAiABAAAAAAAEABAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SpringJoint.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimpleDynamics.Vector2D" Collapsed="true">
+    <Position X="8.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAYAEAAABACAAAAAAAAACAAAAAYAA=</HashCode>
+      <FileName>Vector2D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimpleDynamics.World" Collapsed="true">
+    <Position X="10.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAIQEAAAAAgAAkAAAAAAAKALAAAAAAAEAA=</HashCode>
+      <FileName>World.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimpleDynamics.Properties.Resources" Collapsed="true">
+    <Position X="7" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimpleDynamics.Properties.Settings" Collapsed="true">
+    <Position X="10.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
