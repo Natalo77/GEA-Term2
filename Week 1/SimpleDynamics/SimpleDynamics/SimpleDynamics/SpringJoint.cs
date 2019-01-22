@@ -34,16 +34,17 @@ namespace SimpleDynamics
             //Note: The spring force has a direction which is given by the vector between BodyB and BodyA
             // The magnitude of the spring force is caculated using the Hooke's law
 
-            //Only apply calculations if the length is greater than the rest length.
-            if (length > RestLength)
+            //Obtain a value for the difference between the length and the rest length (extension)
+            //Negative means compression. Positive means extension.
+            float extension = length - RestLength;
+
+            //Only apply calculations if the length is different to the rest length.
+            // - if the extension is within 2 epsilon, don't apply calculations.
+            if (!(Math.Abs( length - RestLength ) <= (2 * float.Epsilon)))
             {
-
-                length -= RestLength;
-                
-
                 //Compute the spring force based on Hooke's law.
                 // F = -kx
-                float hookesForce = -(Stiffness * length);
+                float hookesForce = -(Stiffness * extension);
 
                 //Create a vector of hookesForce.
                 Vector2D hookesForceVec = new Vector2D(hookesForce, hookesForce);
@@ -52,12 +53,16 @@ namespace SimpleDynamics
                 s_vec.X = s_vec.X / s_vec.Length();
                 s_vec.Y = s_vec.Y / s_vec.Length();
 
-                //Create a vector for force proportional to the hookesForce to be applied.
-                hookesForceVec.X *= s_vec.X;
-                hookesForceVec.Y *= s_vec.Y;
+                //Create a vector for force proportional to the hookesForce to be applied
+                // - And dampen it.
+                hookesForceVec.X *= s_vec.X * Dampen;
+                hookesForceVec.Y *= s_vec.Y * Dampen;
 
-                //Apply the force to body A.
-                BodyB.Force += hookesForceVec;
+                //Take into account gravitational force where the Y is concerned.
+                //hookesForceVec.Y += 9.81f;
+
+                //Apply the force to body B.
+                BodyB.Force = hookesForceVec;
             }
         }
     }
