@@ -1,0 +1,10 @@
+C:\Users\u1661665\Downloads\GEA-Term2\Week 1\SimpleDynamics\SimpleDynamics\SimpleDynamics\bin\Debug\SimpleDynamics.exe.config
+C:\Users\u1661665\Downloads\GEA-Term2\Week 1\SimpleDynamics\SimpleDynamics\SimpleDynamics\bin\Debug\SimpleDynamics.exe
+C:\Users\u1661665\Downloads\GEA-Term2\Week 1\SimpleDynamics\SimpleDynamics\SimpleDynamics\bin\Debug\SimpleDynamics.pdb
+C:\Users\u1661665\Downloads\GEA-Term2\Week 1\SimpleDynamics\SimpleDynamics\SimpleDynamics\obj\Debug\SimpleDynamics.csprojAssemblyReference.cache
+C:\Users\u1661665\Downloads\GEA-Term2\Week 1\SimpleDynamics\SimpleDynamics\SimpleDynamics\obj\Debug\SimpleDynamics.MainWindow.resources
+C:\Users\u1661665\Downloads\GEA-Term2\Week 1\SimpleDynamics\SimpleDynamics\SimpleDynamics\obj\Debug\SimpleDynamics.Properties.Resources.resources
+C:\Users\u1661665\Downloads\GEA-Term2\Week 1\SimpleDynamics\SimpleDynamics\SimpleDynamics\obj\Debug\SimpleDynamics.csproj.GenerateResource.cache
+C:\Users\u1661665\Downloads\GEA-Term2\Week 1\SimpleDynamics\SimpleDynamics\SimpleDynamics\obj\Debug\SimpleDynamics.csproj.CoreCompileInputs.cache
+C:\Users\u1661665\Downloads\GEA-Term2\Week 1\SimpleDynamics\SimpleDynamics\SimpleDynamics\obj\Debug\SimpleDynamics.exe
+C:\Users\u1661665\Downloads\GEA-Term2\Week 1\SimpleDynamics\SimpleDynamics\SimpleDynamics\obj\Debug\SimpleDynamics.pdb

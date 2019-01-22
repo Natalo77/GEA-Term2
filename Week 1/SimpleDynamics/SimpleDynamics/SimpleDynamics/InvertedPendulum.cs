@@ -46,17 +46,26 @@ namespace SimpleDynamics
 
             //TODO: Calculate the torque exerted on the pendulum
             //Note: At the moment, the only force is the gravity in world
-            float torque = 0.0f;
+            //Torque = FrSin(Theta)
+            //F = force (gravity) = 9.81.
+            //r = length of arm  = 200.
+            //theta = tan^-1(x/y)
+            float torque = (float)(9.81f * pendulum_rod.Length() * Math.Atan(pendulum_rod.X/pendulum_rod.Y));
+
             
             //TODO: Calculate the angular acceleration from the torque
             //Note: You can approximate the moment of inertia using the pendulum's mass for now
-            float angular_acc = 0.0f;
+            //Ttotal = Ia
+            //a = Ttotal/I
+            float angular_acc = torque / Pendulum.Mass;
 
             //TODO: Update the angular velocity based on angular_acc
-            Pendulum.AngularVelocity = 0.0f;
+            //dV = a * dt
+            Pendulum.AngularVelocity += angular_acc * dt;
 
             //TODO: Caculate the angle of rotation based on the AngularVelocity of the Pendulum
-            float dtheta = 0.0f;
+            //dtheta = w * dt
+            float dtheta = Pendulum.AngularVelocity * dt;
 
             //Build a rotation matrix based on the current dtheta
             Matrix2 rotation = new Matrix2();

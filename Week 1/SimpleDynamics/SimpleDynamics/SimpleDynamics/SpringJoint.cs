@@ -61,7 +61,7 @@ namespace SimpleDynamics
                 //Take into account gravitational force where the Y is concerned.
                 //hookesForceVec.Y += 9.81f;
 
-                //Apply the force to body B.
+                //Apply the force to body B. No force is required on body A as it is static.
                 BodyB.Force = hookesForceVec;
             }
         }

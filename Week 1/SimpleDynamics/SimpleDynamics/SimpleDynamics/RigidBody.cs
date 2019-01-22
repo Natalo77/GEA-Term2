@@ -18,6 +18,9 @@ namespace SimpleDynamics
         public float InvInertia { get; set; }
         public bool IgnoreGravity { get; set; }
         public Shape Shape { get; set; }
+
+        //gravtiational constant.
+        public const float GRAV = 6.67e-11f;
  
         public RigidBody()
         {
@@ -33,6 +36,39 @@ namespace SimpleDynamics
         {
             //Newton 2nd Law
             Vector2D acceleration = Force * InvMass;
+
+            //Create a force vector.
+            Vector2D forceVector = new Vector2D(0,0);
+
+            //Create a direction vector.
+            Vector2D toOther = new Vector2D();
+
+            //against each particle in the dynmic prop list.
+            foreach(var particle in world.mDynamicPropList)
+            {
+                //get the vector to the other particle.
+                toOther = particle.Position - this.Position;
+
+                //force = GMm/r^2
+                float force = GRAV * this.Mass * particle.Mass / toOther.Length();
+
+                //Normalise the vector as its length is no longer relevant.
+                toOther.X = toOther.X / toOther.Length();
+                toOther.Y = toOther.Y / toOther.Length();
+
+                //Apply the force to the vector.
+                toOther.X *= force;
+                toOther.Y *= force;
+
+                //add this vector to the resultant forcevector.
+                forceVector.X += toOther.X;
+                forceVector.Y += toOther.Y;
+
+                //Apply this forcevector to the particle.
+                this.Force += forceVector;
+            }
+
+            
             
             if (IgnoreGravity)
             {
@@ -44,8 +80,6 @@ namespace SimpleDynamics
             }
 
             //Euler Integration
-            
-
             Position = Position + LinearVelocity * dt;
         }
     }

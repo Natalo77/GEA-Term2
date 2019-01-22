@@ -76,6 +76,10 @@ namespace SimpleDynamics
                     mWorld.AddSpringJoint(new Vector2D(mouseloc.X, mouseloc.Y));
                     break;
 
+                case MouseButtons.Middle:
+                    mWorld.NBodySimulation(new Vector2D(mouseloc.X, mouseloc.Y));
+                    break;
+
                 default:
                     break;
             }

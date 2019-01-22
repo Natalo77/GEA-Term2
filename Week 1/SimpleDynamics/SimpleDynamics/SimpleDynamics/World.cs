@@ -134,5 +134,19 @@ namespace SimpleDynamics
             
             mSpringList.Add(spring);
         }
+
+
+        //Create an N-Body simulation.
+        public void NBodySimulation(Vector2D pos)
+        {
+            //Create a new RNG.
+            Random random = new Random();
+
+            //For a specified number of particles.
+            for(int x = 0; x < 10; x++)
+            {
+                AddNewBodyRandom(new Vector2D(pos.X + random.Next(-250, 250), pos.Y + random.Next(-100, 100)));
+            }
+        }
     }
 }
