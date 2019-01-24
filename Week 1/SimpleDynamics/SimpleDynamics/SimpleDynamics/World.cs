@@ -21,7 +21,7 @@ namespace SimpleDynamics
         public World()
         {
             Gravity = new Vector2D(0.0f, 98.0f);
-            Ground = new RigidBody();
+            Ground = new RigidBody(true);
             Ground.Shape = new Box(
                 new Vector2D(-640, -20),
                 new Vector2D(640, -20),
@@ -37,6 +37,8 @@ namespace SimpleDynamics
 
             mRandom = new Random();
             mDefaultCircle = new Circle();
+
+            NBodySimulation(new Vector2D(250,250));
         }
 
         private void RemoveOutOfBoundRigidBody()
@@ -74,15 +76,18 @@ namespace SimpleDynamics
                 prop.Step(dt, this);
             }
 
-            mInvertedPendulum.Step(dt, this);
+            if (mInvertedPendulum != null)
+            {
+                mInvertedPendulum.Step(dt, this);
+            }
 
             //TODO: Check and resolve collision
         }
 
         //Add a new rigid body at a given position with random attributes
-        public void AddNewBodyRandom(Vector2D pos)
+        public void AddNewBodyRandom(Vector2D pos, bool ignoreGravity)
         {
-            RigidBody newBody = new RigidBody();
+            RigidBody newBody = new RigidBody(ignoreGravity);
 
             newBody.Shape = this.mDefaultCircle;
             newBody.Position = pos;
@@ -105,8 +110,8 @@ namespace SimpleDynamics
             RigidBody[] newBodies = new RigidBody[2];
             SpringJoint spring = new SpringJoint();
             
-            newBodies[0] = new RigidBody();
-            newBodies[1] = new RigidBody();
+            newBodies[0] = new RigidBody(true);
+            newBodies[1] = new RigidBody(true);
             newBodies[0].Shape = mDefaultCircle;
             newBodies[1].Shape = mDefaultCircle;
             
@@ -139,13 +144,16 @@ namespace SimpleDynamics
         //Create an N-Body simulation.
         public void NBodySimulation(Vector2D pos)
         {
-            //Create a new RNG.
-            Random random = new Random();
+            //Clear the proplist.
+            mDynamicPropList.Clear();
+            mStaticPropList.Clear();
+            mSpringList.Clear();
+            mInvertedPendulum = null;
 
             //For a specified number of particles.
             for(int x = 0; x < 10; x++)
             {
-                AddNewBodyRandom(new Vector2D(pos.X + random.Next(-250, 250), pos.Y + random.Next(-100, 100)));
+                AddNewBodyRandom(new Vector2D(pos.X + mRandom.Next(-250, 250), pos.Y + mRandom.Next(-100, 100)), true);
             }
         }
     }

@@ -50,10 +50,18 @@ namespace SimpleDynamics
                 mRenderer.Draw(spring, graphics);
             }
 
-            mRenderer.Draw(mWorld.mInvertedPendulum.Cart, graphics);
-            mRenderer.Draw(mWorld.mInvertedPendulum.Pendulum, graphics);
-            mRenderer.DrawLine(mWorld.mInvertedPendulum.Cart.Position,
+            try
+            {
+                mRenderer.Draw(mWorld.mInvertedPendulum.Cart, graphics);
+                mRenderer.Draw(mWorld.mInvertedPendulum.Pendulum, graphics);
+                mRenderer.DrawLine(mWorld.mInvertedPendulum.Cart.Position,
                 mWorld.mInvertedPendulum.Pendulum.Position, graphics);
+            }
+            catch(NullReferenceException a)
+            {
+
+            }
+
         }
         
         private void TickWorld(object sender, EventArgs e)
@@ -69,7 +77,7 @@ namespace SimpleDynamics
             switch (e.Button)
             {
                 case System.Windows.Forms.MouseButtons.Right:
-                    mWorld.AddNewBodyRandom(new Vector2D(mouseloc.X, mouseloc.Y));
+                    mWorld.AddNewBodyRandom(new Vector2D(mouseloc.X, mouseloc.Y), false);
                     break;
 
                 case System.Windows.Forms.MouseButtons.Left:

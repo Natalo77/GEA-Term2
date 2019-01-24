@@ -14,7 +14,7 @@ namespace SimpleDynamics
         private float rod_length;
         public InvertedPendulum()
         {
-            Cart = new RigidBody();
+            Cart = new RigidBody(true);
             
             //The position of the centre of mass of the cart.
             //This is also where the pendulum rod attached to the cart
@@ -33,7 +33,7 @@ namespace SimpleDynamics
 
             rod_length = Offset.Length();
 
-            Pendulum = new RigidBody();
+            Pendulum = new RigidBody(true);
             Pendulum.Shape = new Circle();
             //position of the pendulum based on the offset
             Pendulum.Position = Cart.Position + Offset;
@@ -45,18 +45,15 @@ namespace SimpleDynamics
             Vector2D pendulum_rod = Pendulum.Position - Cart.Position;
 
             //TODO: Calculate the torque exerted on the pendulum
-            //Note: At the moment, the only force is the gravity in world
-            //Torque = FrSin(Theta)
-            //F = force (gravity) = 9.81.
-            //r = length of arm  = 200.
-            //theta = tan^-1(x/y)
-            float torque = (float)(9.81f * pendulum_rod.Length() * Math.Atan(pendulum_rod.X/pendulum_rod.Y));
+            // - Note: At the moment, the only force is the gravity in world
+            //T - orque = r-> cross F->
+            float torque = pendulum_rod.Cross(world.Gravity);
 
             
             //TODO: Calculate the angular acceleration from the torque
-            //Note: You can approximate the moment of inertia using the pendulum's mass for now
-            //Ttotal = Ia
-            //a = Ttotal/I
+            // - Note: You can approximate the moment of inertia using the pendulum's mass for now
+            // - Ttotal = Ia
+            // - a = Ttotal/I
             float angular_acc = torque / Pendulum.Mass;
 
             //TODO: Update the angular velocity based on angular_acc
@@ -64,7 +61,7 @@ namespace SimpleDynamics
             Pendulum.AngularVelocity += angular_acc * dt;
 
             //TODO: Caculate the angle of rotation based on the AngularVelocity of the Pendulum
-            //dtheta = w * dt
+            // - dtheta = w * dt
             float dtheta = Pendulum.AngularVelocity * dt;
 
             //Build a rotation matrix based on the current dtheta

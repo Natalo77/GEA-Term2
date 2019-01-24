@@ -30,12 +30,12 @@ namespace SimpleDynamics
             float length = s_vec.Length();
 
             //TODO: Compute the spring force based on Hooke's law
-            //Apply the spring force to the two bodies joined by the spring
-            //Note: The spring force has a direction which is given by the vector between BodyB and BodyA
-            // The magnitude of the spring force is caculated using the Hooke's law
+            // - Apply the spring force to the two bodies joined by the spring
+            // - Note: The spring force has a direction which is given by the vector between BodyB and BodyA
+            // - The magnitude of the spring force is caculated using the Hooke's law
 
             //Obtain a value for the difference between the length and the rest length (extension)
-            //Negative means compression. Positive means extension.
+            // - Negative means compression. Positive means extension.
             float extension = length - RestLength;
 
             //Only apply calculations if the length is different to the rest length.
@@ -43,7 +43,7 @@ namespace SimpleDynamics
             if (!(Math.Abs( length - RestLength ) <= (2 * float.Epsilon)))
             {
                 //Compute the spring force based on Hooke's law.
-                // F = -kx
+                // - F = -kx
                 float hookesForce = -(Stiffness * extension);
 
                 //Create a vector of hookesForce.
@@ -59,7 +59,7 @@ namespace SimpleDynamics
                 hookesForceVec.Y *= s_vec.Y * Dampen;
 
                 //Take into account gravitational force where the Y is concerned.
-                //hookesForceVec.Y += 9.81f;
+                // - hookesForceVec.Y += 9.81f;
 
                 //Apply the force to body B. No force is required on body A as it is static.
                 BodyB.Force = hookesForceVec;
