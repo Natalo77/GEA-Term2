@@ -15,7 +15,7 @@ namespace SimpleDynamics
         public InvertedPendulum mInvertedPendulum { get; set; }
         private Random mRandom;
         public Vector2D Gravity { get; set; }
-        private const float mMaxSpeed = 20.0f;
+        private const float mMaxSpeed = 200.0f;//20.0f;
         private Shape mDefaultCircle;
         
         public World()
@@ -37,8 +37,6 @@ namespace SimpleDynamics
 
             mRandom = new Random();
             mDefaultCircle = new Circle();
-
-            NBodySimulation(new Vector2D(250,250));
         }
 
         private void RemoveOutOfBoundRigidBody()
