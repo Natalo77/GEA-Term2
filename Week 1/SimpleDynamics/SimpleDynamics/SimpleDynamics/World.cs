@@ -15,7 +15,7 @@ namespace SimpleDynamics
         public InvertedPendulum mInvertedPendulum { get; set; }
         private Random mRandom;
         public Vector2D Gravity { get; set; }
-        private const float mMaxSpeed = 200.0f;
+        private const float mMaxSpeed = 20.0f;
         private Shape mDefaultCircle;
         
         public World()
@@ -151,7 +151,7 @@ namespace SimpleDynamics
             mInvertedPendulum = null;
 
             //For a specified number of particles.
-            for(int x = 0; x < 10; x++)
+            for(int x = 0; x < 100; x++)
             {
                 AddNewBodyRandom(new Vector2D(pos.X + mRandom.Next(-250, 250), pos.Y + mRandom.Next(-100, 100)), true);
             }

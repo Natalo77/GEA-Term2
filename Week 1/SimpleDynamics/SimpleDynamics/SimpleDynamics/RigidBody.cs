@@ -24,7 +24,7 @@ namespace SimpleDynamics
  
         public RigidBody(bool ignoreGravity)
         {
-            Mass = 200.0f;
+            Mass = 500000000000.0f;
             InvMass = 1.0f / Mass;
             Position = new Vector2D();
             LinearVelocity = new Vector2D();
@@ -50,23 +50,28 @@ namespace SimpleDynamics
                 //against each particle in the dynmic prop list.
                 foreach (var particle in world.mDynamicPropList)
                 {
-                    //get the vector to the other particle.
-                    toOther = particle.Position - this.Position;
+                    //Exclude the self particle frome evaluation
+                    if (particle != this)
+                    {
 
-                    //force = GMm/r^2
-                    float force = GRAV * this.Mass * particle.Mass / toOther.LengthSqr();
+                        //get the vector to the other particle.
+                        toOther = particle.Position - this.Position;
 
-                    //Normalise the vector as its length is no longer relevant.
-                    toOther.X = toOther.X / toOther.Length();
-                    toOther.Y = toOther.Y / toOther.Length();
+                        //force = GMm/r^2
+                        float force = GRAV * this.Mass * particle.Mass / toOther.LengthSqr();
 
-                    //Apply the force to the vector.
-                    toOther.X *= force;
-                    toOther.Y *= force;
+                        //Normalise the vector as its length is no longer relevant.
+                        toOther.X = toOther.X / toOther.Length();
+                        toOther.Y = toOther.Y / toOther.Length();
 
-                    //add this vector to the resultant forcevector.
-                    forceVector.X += toOther.X;
-                    forceVector.Y += toOther.Y;
+                        //Apply the force to the vector.
+                        toOther.X *= force;
+                        toOther.Y *= force;
+
+                        //add this vector to the resultant forcevector.
+                        forceVector.X += toOther.X;
+                        forceVector.Y += toOther.Y;
+                    }
 
                 }
                 //Calculate the resultant acceleration.
