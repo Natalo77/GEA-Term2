@@ -50,6 +50,11 @@ namespace SimpleDynamics
                 mRenderer.Draw(spring, graphics);
             }
 
+            foreach(var prop in mWorld.mNBodyPropList)
+            {
+                mRenderer.Draw(prop, graphics);
+            }
+
             try
             {
                 mRenderer.Draw(mWorld.mInvertedPendulum.Cart, graphics);
@@ -111,7 +116,7 @@ namespace SimpleDynamics
                 default:
                     break;
             }
-
+             
             Invalidate();
         }
 

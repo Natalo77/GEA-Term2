@@ -18,15 +18,14 @@ namespace SimpleDynamics
         public float InvInertia { get; set; }
         public bool IgnoreGravity { get; set; }
         public Shape Shape { get; set; }
-        private Vector2D oldVelocity;
-        private Vector2D oldPosition;
+
 
         //gravtiational constant.
         public const float GRAV = 6.67e-11f;
  
         public RigidBody(bool ignoreGravity)
         {
-            Mass = 200.0f;//500000000000.0f;
+            Mass = 500000000000.0f;
             InvMass = 1.0f / Mass;
             Position = new Vector2D();
             LinearVelocity = new Vector2D();
@@ -43,43 +42,6 @@ namespace SimpleDynamics
             
             if (IgnoreGravity)
             {
-                /*
-                //Create a force vector.
-                Vector2D forceVector = new Vector2D(0,0);
-
-                //Create a direction vector.
-                Vector2D toOther = new Vector2D();
-
-                //against each particle in the dynmic prop list.
-                foreach (var particle in world.mDynamicPropList)
-                {
-                    //Exclude the self particle frome evaluation
-                    if (particle != this)
-                    {
-
-                        //get the vector to the other particle.
-                        toOther = particle.Position - this.Position;
-
-                        //force = GMm/r^2
-                        float force = GRAV * this.Mass * particle.Mass / toOther.LengthSqr();
-
-                        //Normalise the vector as its length is no longer relevant.
-                        toOther.X = toOther.X / toOther.Length();
-                        toOther.Y = toOther.Y / toOther.Length();
-
-                        //Apply the force to the vector.
-                        toOther.X *= force;
-                        toOther.Y *= force;
-
-                        //add this vector to the resultant forcevector.
-                        forceVector.X += toOther.X;
-                        forceVector.Y += toOther.Y;
-                    }
-
-                }
-                //Calculate the resultant acceleration.
-                acceleration = forceVector * InvMass;*/
-
                 LinearVelocity = LinearVelocity + acceleration * dt;
             }
             else
@@ -88,13 +50,38 @@ namespace SimpleDynamics
             }
 
             //Euler Integration
-            //EulerIntegration(dt);
+            EulerIntegration(dt);
 
             //Midpoint Integration.
             //MidpointIntegration(world, acceleration, dt);
 
             //RungeKutta integration.
-            RungeKuttaIntegration(acceleration, world, dt);
+            //RungeKuttaIntegration(acceleration, world, dt);
+        }
+
+        public Vector2D getForceTo(RigidBody body)
+        {
+            //Create a force vector.
+            Vector2D forceVector = new Vector2D(0,0);
+
+            //Create a direction vector.
+            Vector2D toOther = new Vector2D();
+
+            //get the vector to the other particle.
+            toOther = body.Position - this.Position;
+
+            //force = GMm/r^2
+            float force = GRAV * this.Mass * body.Mass / toOther.LengthSqr();
+
+            //Normalise the vector as its length is no longer relevant.
+            toOther.X = toOther.X / toOther.Length();
+            toOther.Y = toOther.Y / toOther.Length();
+
+            //Apply the force to the vector.
+            toOther.X *= force;
+            toOther.Y *= force;
+
+            return toOther;
         }
 
         private void EulerIntegration(float dt)

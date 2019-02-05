@@ -10,7 +10,9 @@ namespace SimpleDynamics
     {
         public List<RigidBody> mDynamicPropList = new List<RigidBody>();
         public List<RigidBody> mStaticPropList = new List<RigidBody>();
+        public List<RigidBody> mNBodyPropList = new List<RigidBody>();
         public List<SpringJoint> mSpringList = new List<SpringJoint>();
+        public ImpulseCollisionResponder mCollisionResponder = new ImpulseCollisionResponder();
         public RigidBody Ground { get; set; }
         public InvertedPendulum mInvertedPendulum { get; set; }
         private Random mRandom;
@@ -68,6 +70,28 @@ namespace SimpleDynamics
                spring.ApplyForce();
             }
 
+            //Calculate force on all NBody props
+            foreach (var prop in mNBodyPropList)
+            {
+                Vector2D forceVector = new Vector2D(0, 0);
+                foreach (var otherProp in mNBodyPropList)
+                {
+                    //don't apply force to same particle.
+                    if (prop != otherProp)
+                    {
+                        forceVector += prop.getForceTo(otherProp);
+                    }
+                }
+
+                prop.Force = forceVector;
+            }
+
+            //Step all nBody props
+            foreach(var prop in mNBodyPropList)
+            {
+                prop.Step(dt, this);
+            }
+
             //Step all rigidbody props and update their position
             foreach ( var prop in mDynamicPropList )
             {
@@ -79,7 +103,8 @@ namespace SimpleDynamics
                 mInvertedPendulum.Step(dt, this);
             }
 
-            //TODO: Check and resolve collision
+            //Check and resolve collision
+            SimpleDetectCollision();
         }
 
         //Add a new rigid body at a given position with random attributes
@@ -100,6 +125,25 @@ namespace SimpleDynamics
             newBody.LinearVelocity = rb_velocity;
  
             mDynamicPropList.Add(newBody);
+        }
+
+        public void AddNBodyRandom(Vector2D pos)
+        {
+            RigidBody newBody = new RigidBody(true);
+
+            newBody.Shape = this.mDefaultCircle;
+            newBody.Position = pos;
+
+            float angle = (float)(Math.PI * mRandom.NextDouble());
+            float speed = mMaxSpeed * ((float)(mRandom.NextDouble()));
+
+            Vector2D rb_velocity = new Vector2D();
+            rb_velocity.X = speed * (float)(Math.Cos(angle));
+            rb_velocity.Y = -speed * (float)(Math.Sin(angle));
+
+            newBody.LinearVelocity = rb_velocity;
+
+            mNBodyPropList.Add(newBody);
         }
 
         //Add spring joint
@@ -151,8 +195,58 @@ namespace SimpleDynamics
             //For a specified number of particles.
             for(int x = 0; x < 100; x++)
             {
-                AddNewBodyRandom(new Vector2D(pos.X + mRandom.Next(-250, 250), pos.Y + mRandom.Next(-100, 100)), true);
+                AddNBodyRandom(new Vector2D(pos.X + mRandom.Next(-250, 250), pos.Y + mRandom.Next(-100, 100)));
             }
         }
+
+        private void SimpleDetectCollision()
+        {
+            //Testing collision against the top edge of the GROUND rectangle
+            foreach (var prop in mDynamicPropList)
+            {
+                if (prop.Position.Y > 560.0)
+                {
+                    CollisionPairData pair = new CollisionPairData();
+                    pair.BodyA = prop;
+                    pair.BodyB = Ground;
+                    pair.ContactNormal = new Vector2D(0, -1);
+
+                    mCollisionResponder.Resolve(pair);
+                    Ground.LinearVelocity.X = 0.0f;
+                    Ground.LinearVelocity.Y = 0.0f;
+                }
+            }
+
+            //Brute force N^2 pairwise circle-circle intersection test
+            for (int i = mDynamicPropList.Count - 1; i >= 0; i--)
+            {
+                RigidBody a = mDynamicPropList[i];
+
+                for (int j = mDynamicPropList.Count - 1; j >= 0; j--)
+                {
+                    if (i != j)
+                    {
+                        RigidBody b = mDynamicPropList[j];
+
+                        float d = (a.Position - b.Position).Length();
+
+                        if (d < 30) //N.B. since all circles have a radius of 15
+                        {
+                            Vector2D normal = (a.Position - b.Position);
+                            CollisionPairData pair = new CollisionPairData();
+                            pair.BodyA = a;
+                            pair.BodyB = b;
+                            pair.ContactNormal = normal;
+
+                            mCollisionResponder.AddCollisionPair(pair);
+                        }
+                    }
+                }
+
+                mCollisionResponder.ResolveAllPairs();
+            }
+        }
+
     }
+}
 }
