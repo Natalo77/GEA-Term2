@@ -210,6 +210,8 @@ namespace SimpleDynamics
                     pair.BodyA = prop;
                     pair.BodyB = Ground;
                     pair.ContactNormal = new Vector2D(0, -1);
+                    pair.ContactPoint = prop.Position;
+                    pair.ContactPoint.Y -= ((Circle)(prop.Shape)).Radius;
 
                     mCollisionResponder.Resolve(pair);
                     Ground.LinearVelocity.X = 0.0f;
@@ -249,4 +251,4 @@ namespace SimpleDynamics
 
     }
 }
-}
+
