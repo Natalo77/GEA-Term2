@@ -234,7 +234,35 @@ namespace SimpleDynamics
 
                         if (d < 30) //N.B. since all circles have a radius of 15
                         {
-                            Vector2D normal = (a.Position - b.Position);
+                            Vector2D normal;
+                            if (a == Ground || b == Ground)
+                            {
+                                RigidBody ground = null;
+                                RigidBody other = null;
+                                if (a == Ground)
+                                {
+                                    ground = a;
+                                    other = b;
+                                }
+                                if (b == Ground)
+                                {
+                                    ground = b;
+                                    other = a;
+                                }
+
+                                if (ground.Position.Y < other.Position.Y)
+                                {
+                                    normal = new Vector2D(0, 1);
+                                }
+                                else
+                                {
+                                    normal = new Vector2D(0, -1);
+                                }
+                            }
+                            else
+                            {
+                                normal = (a.Position - b.Position);
+                            }
                             CollisionPairData pair = new CollisionPairData();
                             pair.BodyA = a;
                             pair.BodyB = b;

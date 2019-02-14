@@ -21,11 +21,11 @@ namespace SimpleDynamics
 
 
         //gravtiational constant.
-        public const float GRAV = 6.67e-11f;
+        public const float GRAV = 6.67e-2f; //Abstracted gravitational constant to work with float/integer magnitude limits.
  
         public RigidBody(bool ignoreGravity)
         {
-            Mass = 500000000000.0f;
+            Mass = 500.0f; //Abstracted planetary mass to work with float/integer magnitude limits.
             InvMass = 1.0f / Mass;
             Position = new Vector2D();
             LinearVelocity = new Vector2D();

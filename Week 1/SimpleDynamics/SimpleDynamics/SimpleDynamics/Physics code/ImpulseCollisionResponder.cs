@@ -70,7 +70,8 @@ namespace SimpleDynamics
             //
             //1. Normal impulse.
             
-            //Calculate components of J
+            //Calculate components of Ja
+            /*
             float r1XNormal = radius1.Cross(data.ContactNormal);
             float r2XNormal = radius2.Cross(data.ContactNormal);
 
@@ -82,8 +83,9 @@ namespace SimpleDynamics
             Vector2D scaleR1AR2 = scaleR1 + scaleR2;
 
             float Ja = scaleR1AR2.Dot(data.ContactNormal);
+            */
 
-            float normalDiv = data.ContactNormal.LengthSqr() * (data.BodyA.InvMass + data.BodyB.InvMass) + Ja;
+            float normalDiv = data.ContactNormal.LengthSqr() * (data.BodyA.InvMass + data.BodyB.InvMass); // + Ja;
             //End region
 
             //Calculate Impulse
@@ -94,8 +96,8 @@ namespace SimpleDynamics
             data.BodyB.LinearVelocity -= data.ContactNormal * normalImpulse * data.BodyB.InvMass;
 
             //Calculate resultant angular velocities.
-            data.BodyA.AngularVelocity += data.BodyA.InvMass * (radius1.Cross(data.ContactNormal * normalImpulse));
-            data.BodyB.AngularVelocity -= data.BodyB.InvMass * (radius2.Cross(data.ContactNormal * normalImpulse));
+            //data.BodyA.AngularVelocity += data.BodyA.InvMass * (radius1.Cross(data.ContactNormal * normalImpulse));
+            //data.BodyB.AngularVelocity -= data.BodyB.InvMass * (radius2.Cross(data.ContactNormal * normalImpulse));
 
             /*
             //2. Tangential impulse.
