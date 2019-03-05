@@ -1,4 +1,5 @@
 #include "Ogre3DApplication.h"
+#include <OgreColourValue.h>
 
 /*M+M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++
   Method:	
@@ -80,6 +81,7 @@ Summary:	Handles the setup of a basic scene.
 M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---*/
 void Ogre3DApplication::setup()
 {
+	using namespace Ogre;
 
 #pragma region 1. ApplicationSetup
 	//Call the base setup in Application Context First.
@@ -94,43 +96,45 @@ void Ogre3DApplication::setup()
 #pragma region 2.1 Create the scene and register it with the RTSS
 	//Create our scene.
 	///Get a pointer to the root node -> then create a scene Manager within that node.
-	Ogre::Root* root = getRoot();
-	Ogre::SceneManager* scnMgr = root->createSceneManager();
+	Root* root = getRoot();
+	SceneManager* scnMgr = root->createSceneManager();
 
 	//Register our 'scene' with the 'Run-Time Shader System' (RTSS)
 	/// - Get the singleton RTSS shaderGenerator -> then add our created sceneManager to it.
-	Ogre::RTShader::ShaderGenerator* shaderGen = Ogre::RTShader::ShaderGenerator::getSingletonPtr();
+	RTShader::ShaderGenerator* shaderGen = RTShader::ShaderGenerator::getSingletonPtr();
 	shaderGen->addSceneManager(scnMgr);
 #pragma endregion.
 
 #pragma region 2.2 Setup a light object.
+	/*
 	//Without light we would just get a black screen.
 	///Create a Light object using our 'scene Manager' -> Then use our 'scene Manager' to get the 'root node' and create a child 'Scene node'
-	Ogre::Light* light = scnMgr->createLight("MainLight");
-	Ogre::SceneNode* lightNode = scnMgr->getRootSceneNode()->createChildSceneNode();
+	Light* light = scnMgr->createLight("MainLight");
+	SceneNode* lightNode = scnMgr->getRootSceneNode()->createChildSceneNode();
 	{
 		///Setup the LightNode.
 		///Set it's position to 0,10,15 xyz -> then attach the 'Light object' to the 'SceneNode "lightNode"'
 		lightNode->setPosition(0, 10, 15);
 		lightNode->attachObject(light);
 	}
+	*/
 #pragma endregion
 
 #pragma region 2.3 Setup the camera.
 	//Tell Ogre where the 'player' (camera) is.
 	///Create a 'scene node' ready for our camera (from the root node) 
-	Ogre::SceneNode* camNode = scnMgr->getRootSceneNode()->createChildSceneNode();
+	SceneNode* camNode = scnMgr->getRootSceneNode()->createChildSceneNode();
 	{
 		///Setup the 'camNode'
 		///Set it's position to 0,0,15 xyz -> then ask it to look along the vector 0,0,-1 (down), relative to it's parent (the rootnode)
-		camNode->setPosition(0, 0, 15);
-		camNode->lookAt(Ogre::Vector3(0, 0, -1), Ogre::Node::TS_PARENT);
+		camNode->setPosition(0, 100, 500);
+		camNode->lookAt(Vector3(0, 0, -1), Node::TS_PARENT);
 		/// - Other options are TS_LOCAL and TS_WORLD (local and world space respectively).
 	}
 
 	//Create the camera object.
 	///Use our 'Scene manager' to create a camera object.
-	Ogre::Camera* cam = scnMgr->createCamera("myCam");
+	Camera* cam = scnMgr->createCamera("myCam");
 	{
 		///Setup the camera object.
 		///set the near clip distance to 5 (specific to this example) -> then set the camera to use the automatically provided aspect ratio.
@@ -150,14 +154,83 @@ void Ogre3DApplication::setup()
 #pragma endregion
 
 #pragma region 3. Add objects to render.
+
+#pragma region 3.1 First object
+
 	//Make something to render!
 	///Create an 'entity' object using our 'scene manager' (with the path to the mesh we want to use) -> then create a 'sceneNode' 'entNode' to contain this mesh.
-	Ogre::Entity* ent = scnMgr->createEntity("Sinbad.mesh");
-	Ogre::SceneNode* entNode = scnMgr->getRootSceneNode()->createChildSceneNode();
+	Entity* ent = scnMgr->createEntity("ogrehead.mesh");
+	SceneNode* entNode = scnMgr->getRootSceneNode()->createChildSceneNode();
 	{
 		///Attach the 'entity' object to our created 'SceneNode'
 		entNode->attachObject(ent);
 	}
+
+#pragma endregion
+
+#pragma region 3.2 Second object.
+
+	//Add a second object.
+	///Setup an entity, attach the mesh -> initialize a node at 84,48,0
+	Entity* ogreEntity = scnMgr->createEntity("ogrehead.mesh");
+	SceneNode* ogreNode = scnMgr->getRootSceneNode()->createChildSceneNode(Vector3(84, 48, 0));
+	{
+		//attach the object to the node.
+		ogreNode->attachObject(ogreEntity);
+	}
+
+#pragma endregion
+
+#pragma region 3.3 Scaling an object!
+
+	//Add a third object to demonstrate scaling.
+	///setup an entity and its scene object.
+	Entity* ent3 = scnMgr->createEntity("ogrehead.mesh");
+	SceneNode* ent3Node = scnMgr->getRootSceneNode()->createChildSceneNode();
+	{
+		//Set the position and the scale.
+		///attach the object to its scene node.
+		ent3Node->setPosition(0, 104, 0);
+		ent3Node->setScale(2, 1.2, 1);
+		ent3Node->attachObject(ent3);
+	}
+
+#pragma endregion
+
+#pragma region 3.4 rotating an object!
+
+	//Add a fourth object to demonstrate rotation.
+	///Entity and Scene node.
+	Entity* rotEnt = scnMgr->createEntity("ogrehead.mesh");
+	SceneNode* rotEntNode = scnMgr->getRootSceneNode()->createChildSceneNode();
+	{
+		//Set up its position and rotation.
+		rotEntNode->setPosition(-84, 48, 0);
+		rotEntNode->roll(Degree(-90));
+		rotEntNode->attachObject(rotEnt);
+	}
+
+#pragma endregion
+
+#pragma endregion
+
+#pragma region 4. change the lighting.
+
+	//Change the light colour.
+	///0.5 of red, green and blue.
+	scnMgr->setAmbientLight(ColourValue(0.5, 0.5, 0.5));
+
+	//Create a new Light.
+	///Use the scene manager to create a light object. -> then create a child scene node attached to the root node.
+	Light* lightTwo = scnMgr->createLight("MainLight2");
+	SceneNode* lightNodeTwo = scnMgr->getRootSceneNode()->createChildSceneNode();
+	{
+		//Setup attachment.
+		///attach the light object to the light node. -> then set the position of the node.
+		lightNodeTwo->attachObject(lightTwo);
+		lightNodeTwo->setPosition(20, 80, 50);
+	}
+
 #pragma endregion
 
 }

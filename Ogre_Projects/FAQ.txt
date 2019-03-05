@@ -67,3 +67,24 @@ Everything broke when I added in my main function.
 		#pragma comment(lib, "OgreRTShaderSystem_d.lib")
 		#pragma comment(lib, "OgreOverlay_d.lib")
 		#endif
+		
+what Scene manager do I pick?
+	- Go here: http://wiki.ogre3d.org/tiki-index.php?page=SceneManagersFAQ
+	
+How do i render an entity?
+	- attach it to a scene node, attach that to the root node.
+	- Do you have a light and a camera set to render to the viewport in your scene as well?
+	
+github hates me
+	- remove the fucking .vs file you inbred
+	
+My Entity is moving weird.
+	- Use the scene node.
+	- setPosition() is for setting the position relative to the parent.
+	- translate() is used to actually move the thing.
+
+How do I rotate or scale an object.
+	- do it all in the scene node!
+	
+Why does't roll/pitch/yaw work?
+	- Tell it whether you're using Degree(number) or Radian(Number)
