@@ -127,6 +127,7 @@ void Ogre3DApplication::setup()
 
 	//Setup our initial lighting.
 #pragma region 2.2 Setup a light object.
+	
 	/*
 	//Without light we would just get a black screen.
 	///Create a Light object using our 'scene Manager' -> Then use our 'scene Manager' to get the 'root node' and create a child 'Scene node'
@@ -139,6 +140,7 @@ void Ogre3DApplication::setup()
 		lightNode->attachObject(light);
 	}
 	*/
+	
 #pragma endregion
 
 	//Setup our camera.
@@ -192,6 +194,8 @@ void Ogre3DApplication::setup()
 
 	//Add some objects to render in the scene.
 #pragma region 3. Add objects to render.
+
+	/*
 
 	//Standard object.
 #pragma region 3.1 First object
@@ -254,6 +258,8 @@ void Ogre3DApplication::setup()
 
 #pragma endregion
 
+	*/
+
 	//Shadows object!
 #pragma region 3.5 Shadows on an object.
 
@@ -288,7 +294,17 @@ void Ogre3DApplication::setup()
 		true,
 		1, 5, 5,
 		Ogre::Vector3::UNIT_Z
-	)
+	);
+
+	//Use the created plane to create an entity and node.
+	///"ground" is from the MeshManager using "ground" as the name for the resource. It gets stored where the scene manager can access it.
+	Entity* groundEnt = scnMgr->createEntity("ground");
+	scnMgr->getRootSceneNode()->createChildSceneNode()->attachObject(groundEnt);
+	{
+		//Don't need shadows for the ground. -> then set the material for the mesh.
+		groundEnt->setCastShadows(false);
+		groundEnt->setMaterialName("Examples/Rockwall");
+	}
 
 #pragma endregion
 
@@ -299,24 +315,76 @@ void Ogre3DApplication::setup()
 #pragma endregion
 
 	//Make some tweaks to the lighting.
-#pragma region 4. change the lighting.
+#pragma region 4. change the base lighting setting.
 
 	//Change the light colour.
-	///0.5 of red, green and blue.
-	scnMgr->setAmbientLight(ColourValue(0.5, 0.5, 0.5));
+	///0,0,0 to see the full effect of the lights
+	scnMgr->setAmbientLight(ColourValue(0, 0, 0));
 
-	//Create a new Light.
-	///Use the scene manager to create a light object. -> then create a child scene node attached to the root node.
-	Light* lightTwo = scnMgr->createLight("MainLight2");
-	SceneNode* lightNodeTwo = scnMgr->getRootSceneNode()->createChildSceneNode();
+	//Set the shadow method to be used.
+	scnMgr->setShadowTechnique(ShadowTechnique::SHADOWTYPE_STENCIL_MODULATIVE);
+
+#pragma endregion
+
+	//Create some more advanced lighting.
+#pragma region 5. Add lights.
+
+	//Add a spotlight.
+#pragma region 5.1 Add a spotlight.
+
+	//Create a spotlight using the scnMgr.
+	///The name of the spotlight is SpotLight (WE DON'T SET THE TYPE YET)
+	Light* spotLight = scnMgr->createLight("SpotLight");
 	{
-		//Setup attachment.
-		///attach the light object to the light node. -> then set the position of the node.
-		lightNodeTwo->attachObject(lightTwo);
-		lightNodeTwo->setPosition(20, 80, 50);
+		//set up some values.
+		spotLight->setDiffuseColour(0, 0, 1.0);		///pure blue.
+		spotLight->setSpecularColour(0, 0, 1.0);	///pure blue.
+
+		spotLight->setType(Light::LT_SPOTLIGHT);	///Ogre::Light::LightTypes::LT_SPOTLIGHT
+
+		spotLight->setSpotlightRange(Degree(35), Degree(50));	///the fading angles.
+
+		spotLight->setAttenuation(Real(7000000), Real(1.0), Real(0.000014), Real(0.000007));
+	}
+
+	//Create a node for the spotLight.
+	SceneNode* spotLightNode = scnMgr->getRootSceneNode()->createChildSceneNode();
+	{
+		//Set up properties of the node and attachments.
+		spotLightNode->attachObject(spotLight);
+
+		spotLightNode->setDirection(-1, -1, 0);				///Point down on the player.
+		spotLightNode->setPosition(Vector3(200, 200, 0));	///Put in suitable position.
 	}
 
 #pragma endregion
+
+	//Add a directional light.
+#pragma region 5.2 Add a directional light.
+	Light* dirLight = scnMgr->createLight("directionalLight");
+	{
+		//Setup type and values.
+		dirLight->setType(Light::LightTypes::LT_DIRECTIONAL);
+
+		dirLight->setDiffuseColour(ColourValue(0.4, 0, 0));		///dark red.
+		dirLight->setSpecularColour(ColourValue(0.4, 0, 0));	///dark red.
+	}
+
+	//Create the node for the directional light.
+	SceneNode* dirLightNode = scnMgr->getRootSceneNode()->createChildSceneNode();
+	{
+		//Setup attachment and values.
+		///Directional lights do not need positions.
+		dirLightNode->attachObject(dirLight);
+		dirLightNode->setDirection(Vector3(0, -1, 1));
+	}
+#pragma endregion
+
+
+
+#pragma endregion
+
+
 
 }
 

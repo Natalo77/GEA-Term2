@@ -1,15 +1,22 @@
-What is Constructor() : OgreBites::ApplicationContext("WindowName"){}
+CATEGORIES:
+	- CAT_C++_related
+	- CAT_WontWork
+	- CAT_Efficiency
+	- CAT_Design
+	
+
+What is Constructor() : OgreBites::ApplicationContext("WindowName"){} (CAT_C++_related)
 	- everything past the : is the member initializer list, a feature of C++ constructors that can change initialized variables or use other constructors within the object BEFORE initialization.
 		- In this case, the Constructor inherits from OgreBites::ApplicationContext, so Constructor is using the constructor for OgreBites::ApplicationContext(String name) instead of the default constructor.
 		- This particular constructor sets the name of the window to "WindowName".
 		
-getRoot() won't work!
+getRoot() won't work! (CAT_WontWork)
 	- getRoot() is defined in <Bites/OgreTrays.h>
 	
-SceneManager->getRootSceneNode() won't work!
+SceneManager->getRootSceneNode() won't work! (CAT_WontWork)
 	- getRootSceneNode() is Defined in <Ogre.h>
 	
-Everything broke when I added in my main function.
+Everything broke when I added in my main function. (WontWork)
 	- 1. THIS IS WRONG.
 		int main(int argc, char *argv[])
 		{
@@ -68,29 +75,46 @@ Everything broke when I added in my main function.
 		#pragma comment(lib, "OgreOverlay_d.lib")
 		#endif
 		
-what Scene manager do I pick?
+what Scene manager do I pick? (CAT_Design)
 	- Go here: http://wiki.ogre3d.org/tiki-index.php?page=SceneManagersFAQ
 	
-How do i render an entity?
+How do i render an entity? (CAT_WontWork)
 	- attach it to a scene node, attach that to the root node.
 	- Do you have a light and a camera set to render to the viewport in your scene as well?
 	
-github hates me
+github hates me (CAT_WontWork)
 	- remove the fucking .vs file you inbred
 	
-My Entity is moving weird.
+My Entity is moving weird. (CAT_WontWork)
 	- Use the scene node.
 	- setPosition() is for setting the position relative to the parent.
 	- translate() is used to actually move the thing.
 
-How do I rotate or scale an object.
+How do I rotate or scale an object. (CAT_WontWork)
 	- do it all in the scene node!
 	
-Why does't roll/pitch/yaw work?
+Why does't roll/pitch/yaw work? (CAT_WontWork)
 	- Tell it whether you're using Degree(number) or Radian(Number)
 	
-Why is my multi camera view distorted?
+Why is my multi camera view distorted? (CAT_WontWork)
 	- Did you set each camera's aspect ratio correctly.
 	
-How can I create my own mesh?
+How can I create my own mesh? (CAT_Design)
 	- Use Ogre::MeshManager
+	
+SetMaterial won't work! String problem (CAT_WontWork)
+	- Are you using a string? if so it needs to be setMaterialName(pathname).
+	
+What shadows should I pick? (CAT_Design)
+	- Go here: https://ogrecave.github.io/ogre/api/latest/class_ogre_1_1_scene_manager.html#ad716d3752418408f073d9be9bbfe62d0
+	- and here: https://ogrecave.github.io/ogre/api/latest/group___general.html#ga79dcd426d291c31072c1ad6f183715d6
+	
+How do I get a light? (CAT_Design, CAT_WontWork)
+	- go here: https://ogrecave.github.io/ogre/api/latest/class_ogre_1_1_light.html#a4f1dea084d1497c6f49e802ade940dbca0d59bfdcfeb338dbfe06e2e2999e752f
+	
+How do I set a light? (CAT_Design, CAT_WontWork)
+	- Are you trying to specify the light when you create it?
+	- the name you pass in creating the light is the name of the light object.
+	- Set the light type later on using myLight.setType();
+	
+	
