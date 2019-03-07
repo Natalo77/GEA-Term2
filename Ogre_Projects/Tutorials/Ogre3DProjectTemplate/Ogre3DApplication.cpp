@@ -66,6 +66,23 @@ bool Ogre3DApplication::keyPressed(const OgreBites::KeyboardEvent & evt)
 
 }
 
+//getAspectRatio()
+/*M+M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++
+Method:		getAspectRatio(Ogre::Viewport* vp)
+
+Summary:	Gets an Ogre::Real value representing the aspect ratio of the passed in viewport.
+
+Args:		vp
+				the viewport to calculate the aspect ratio for.
+
+Returns:	Ogre::Real value representing the viewport vp's width/height
+M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---*/
+Ogre::Real Ogre3DApplication::getAspectRatio(Ogre::Viewport* vp)
+{
+	//Return an Ogre::Real number representing the width/height of the viewport.
+	return Ogre::Real(Ogre::Real(vp->getActualWidth()) / Ogre::Real(vp->getActualHeight()));
+}
+
 //setup()
 /*M+M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++
 Method:		setup()
@@ -83,6 +100,7 @@ void Ogre3DApplication::setup()
 {
 	using namespace Ogre;
 
+	//Setup the base application frame.
 #pragma region 1. ApplicationSetup
 	//Call the base setup in Application Context First.
 	OgreBites::ApplicationContext::setup();
@@ -91,8 +109,10 @@ void Ogre3DApplication::setup()
 	addInputListener(this);
 #pragma endregion
 
+	//Create the base elements for the scene.
 #pragma region 2. Create Base Scene.
 
+	//Create the scene itself and register it with the Shader.
 #pragma region 2.1 Create the scene and register it with the RTSS
 	//Create our scene.
 	///Get a pointer to the root node -> then create a scene Manager within that node.
@@ -105,6 +125,7 @@ void Ogre3DApplication::setup()
 	shaderGen->addSceneManager(scnMgr);
 #pragma endregion.
 
+	//Setup our initial lighting.
 #pragma region 2.2 Setup a light object.
 	/*
 	//Without light we would just get a black screen.
@@ -120,19 +141,23 @@ void Ogre3DApplication::setup()
 	*/
 #pragma endregion
 
+	//Setup our camera.
 #pragma region 2.3 Setup the camera.
 	//Tell Ogre where the 'player' (camera) is.
+#pragma region 2.3.1 Create a scene node for the camera.
 	///Create a 'scene node' ready for our camera (from the root node) 
 	SceneNode* camNode = scnMgr->getRootSceneNode()->createChildSceneNode();
 	{
 		///Setup the 'camNode'
 		///Set it's position to 0,0,15 xyz -> then ask it to look along the vector 0,0,-1 (down), relative to it's parent (the rootnode)
-		camNode->setPosition(0, 100, 500);
-		camNode->lookAt(Vector3(0, 0, -1), Node::TS_PARENT);
+		camNode->setPosition(200, 300, 400);
+		camNode->lookAt(Vector3(0, 0, 0), Node::TS_WORLD);
 		/// - Other options are TS_LOCAL and TS_WORLD (local and world space respectively).
 	}
+#pragma endregion
 
 	//Create the camera object.
+#pragma region 2.3.2 Create the camera object.
 	///Use our 'Scene manager' to create a camera object.
 	Camera* cam = scnMgr->createCamera("myCam");
 	{
@@ -145,16 +170,30 @@ void Ogre3DApplication::setup()
 		///attach the 'camera object' to the 'SceneNode' 'camNode'
 		camNode->attachObject(cam);
 	}
-
+#pragma endregion
+	
 	//View the main window!
+#pragma region 2.3.3 Set up the viewport
 	///tell the 'main render window' to get its rendering from our created 'camera' object
-	getRenderWindow()->addViewport(cam);
+	Viewport* vp = getRenderWindow()->addViewport(cam);
+	{
+		///Set the background colour of the viewport (black - for lighting).
+		vp->setBackgroundColour(ColourValue(0, 0, 0));
+	}
+	{
+		///Set the aspect ratio of the camera according to the aspect ratio of the assigned viewport.
+		cam->setAspectRatio(getAspectRatio(vp));
+	}
 #pragma endregion
 
 #pragma endregion
 
+#pragma endregion
+
+	//Add some objects to render in the scene.
 #pragma region 3. Add objects to render.
 
+	//Standard object.
 #pragma region 3.1 First object
 
 	//Make something to render!
@@ -168,6 +207,7 @@ void Ogre3DApplication::setup()
 
 #pragma endregion
 
+	//Other standard object.
 #pragma region 3.2 Second object.
 
 	//Add a second object.
@@ -181,6 +221,7 @@ void Ogre3DApplication::setup()
 
 #pragma endregion
 
+	//Scaled object.
 #pragma region 3.3 Scaling an object!
 
 	//Add a third object to demonstrate scaling.
@@ -197,6 +238,7 @@ void Ogre3DApplication::setup()
 
 #pragma endregion
 
+	//rotated object.
 #pragma region 3.4 rotating an object!
 
 	//Add a fourth object to demonstrate rotation.
@@ -212,8 +254,51 @@ void Ogre3DApplication::setup()
 
 #pragma endregion
 
+	//Shadows object!
+#pragma region 3.5 Shadows on an object.
+
+	//Create the object
+#pragma region 3.5.1 Create the ninja.
+
+	///Create an entity from the ninja Mesh object -> then attach it to a new scene node.
+	Entity* ninjaEnt = scnMgr->createEntity("ninja.mesh");
+	{
+		//Set our entity to cast shadows.
+		ninjaEnt->setCastShadows(true);
+	}
+	///All in one line!
+	scnMgr->getRootSceneNode()->createChildSceneNode()->attachObject(ninjaEnt);
+
 #pragma endregion
 
+	//Create the ground for the object.
+#pragma region 3.5.2 Create the ground
+
+	//Create a plane orthogonal to the Y axis.
+	///Move it 0 along its axis.
+	Ogre::Plane groundPlane(Ogre::Vector3::UNIT_Y, 0);
+
+	//Use the Ogre mesh manager to create a plane
+	///Using our abstract groundPlane.
+	Ogre::MeshManager::getSingleton().createPlane(
+		"ground",
+		RGN_DEFAULT,
+		groundPlane,
+		1500, 1500, 20, 20,
+		true,
+		1, 5, 5,
+		Ogre::Vector3::UNIT_Z
+	)
+
+#pragma endregion
+
+#pragma endregion
+
+
+
+#pragma endregion
+
+	//Make some tweaks to the lighting.
 #pragma region 4. change the lighting.
 
 	//Change the light colour.

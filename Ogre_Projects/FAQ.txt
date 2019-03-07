@@ -88,3 +88,9 @@ How do I rotate or scale an object.
 	
 Why does't roll/pitch/yaw work?
 	- Tell it whether you're using Degree(number) or Radian(Number)
+	
+Why is my multi camera view distorted?
+	- Did you set each camera's aspect ratio correctly.
+	
+How can I create my own mesh?
+	- Use Ogre::MeshManager
