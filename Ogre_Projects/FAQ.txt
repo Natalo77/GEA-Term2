@@ -117,4 +117,9 @@ How do I set a light? (CAT_Design, CAT_WontWork)
 	- the name you pass in creating the light is the name of the light object.
 	- Set the light type later on using myLight.setType();
 	
+How do I do soft shadows in Ogre? (CAT_WontWork, CAT_Design)
+	- You can't - write your own or find some code.
+	
+	
+	
 	

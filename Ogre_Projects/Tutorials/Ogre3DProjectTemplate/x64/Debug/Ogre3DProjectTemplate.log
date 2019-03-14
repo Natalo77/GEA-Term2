@@ -1,2 +1,4 @@
 ﻿  Ogre3DApplication.cpp
+  Ogre3DProjectTemplate.cpp
+  LINK : C:\Users\u1661665\Downloads\GEA-Term2\Ogre_Projects\Tutorials\x64\Debug\Ogre3DProjectTemplate.exe not found or not built by the last incremental link; performing full link
   Ogre3DProjectTemplate.vcxproj -> C:\Users\u1661665\Downloads\GEA-Term2\Ogre_Projects\Tutorials\x64\Debug\Ogre3DProjectTemplate.exe
