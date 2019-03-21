@@ -43,5 +43,7 @@ public:
 	AStar_Node* getParent();
 
 	Vector2* getPosition();
+
+	bool isEqual(AStar_Node* node);
 };
 

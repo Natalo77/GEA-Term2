@@ -36,6 +36,9 @@
     <ClInclude Include="AStar_Node.h">
       <Filter>Header Files\Pathfinding</Filter>
     </ClInclude>
+    <ClInclude Include="PriorityQueue.h">
+      <Filter>Header Files\Pathfinding</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Ogre3DApplication.cpp">
@@ -51,6 +54,9 @@
       <Filter>Source Files\Pathfinding</Filter>
     </ClCompile>
     <ClCompile Include="AStar_Node.cpp">
+      <Filter>Source Files\Pathfinding</Filter>
+    </ClCompile>
+    <ClCompile Include="PriorityQueue.cpp">
       <Filter>Source Files\Pathfinding</Filter>
     </ClCompile>
   </ItemGroup>

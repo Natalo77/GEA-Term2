@@ -22,10 +22,12 @@ std::vector<AStar_Node>* AStar::AStarSearch(AStar_Node * start, AStar_Node * des
 	while (!open->empty)
 	{
 		AStar_Node* currentNode = open->top;
-		//...
-		for (uint i = 0; i < currentNode->getNeighbours()->size; i++)
-		{
 
+		for (std::vector<AStar_Edge*>::iterator iter = currentNode->getNeighbours()->begin();	//Iterator at start of AStar_Edge list.
+			iter != currentNode->getNeighbours()->end();										//Until iterator reaches end of list.
+			iter++)																				//Increment Iterator by one.
+		{
+			if()
 		}
 		
 

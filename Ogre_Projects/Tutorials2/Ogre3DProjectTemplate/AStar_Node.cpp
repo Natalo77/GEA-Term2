@@ -61,3 +61,8 @@ Vector2 * AStar_Node::getPosition()
 {
 	return m_position;
 }
+
+bool AStar_Node::isEqual(AStar_Node* node)
+{
+	return node->getPosition() == this->m_position;
+}

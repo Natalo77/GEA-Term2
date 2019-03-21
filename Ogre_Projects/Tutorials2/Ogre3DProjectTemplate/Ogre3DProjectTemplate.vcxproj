@@ -175,6 +175,7 @@
     <ClInclude Include="AStar_Edge.h" />
     <ClInclude Include="AStar_Node.h" />
     <ClInclude Include="Ogre3DApplication.h" />
+    <ClInclude Include="PriorityQueue.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
@@ -183,6 +184,7 @@
     <ClCompile Include="AStar_Node.cpp" />
     <ClCompile Include="Ogre3DApplication.cpp" />
     <ClCompile Include="Ogre3DProjectTemplate.cpp" />
+    <ClCompile Include="PriorityQueue.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
