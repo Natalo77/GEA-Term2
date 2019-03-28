@@ -174,6 +174,7 @@
     <ClInclude Include="AStar.h" />
     <ClInclude Include="AStar_Edge.h" />
     <ClInclude Include="AStar_Node.h" />
+    <ClInclude Include="List.h" />
     <ClInclude Include="Ogre3DApplication.h" />
     <ClInclude Include="PriorityQueue.h" />
     <ClInclude Include="targetver.h" />
@@ -182,6 +183,7 @@
     <ClCompile Include="AStar.cpp" />
     <ClCompile Include="AStar_Edge.cpp" />
     <ClCompile Include="AStar_Node.cpp" />
+    <ClCompile Include="List.cpp" />
     <ClCompile Include="Ogre3DApplication.cpp" />
     <ClCompile Include="Ogre3DProjectTemplate.cpp" />
     <ClCompile Include="PriorityQueue.cpp" />

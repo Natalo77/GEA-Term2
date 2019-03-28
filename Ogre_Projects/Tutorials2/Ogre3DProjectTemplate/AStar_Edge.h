@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef _EDGE_GUARD
+#define _EDGE_GUARD
+
 class AStar_Node;
 
 class AStar_Edge
@@ -13,5 +16,11 @@ public:
 	~AStar_Edge();
 
 	AStar_Edge(AStar_Node* node, float cost);
+
+	float GetCost();
+
+	AStar_Node* GetNode();
 };
+
+#endif
 

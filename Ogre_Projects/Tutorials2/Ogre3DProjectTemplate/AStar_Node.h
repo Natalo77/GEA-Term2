@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef _NODE_GUARD
+#define _NODE_GUARD
+
 //#include <stdlib.h>
 //#include <cstdlib>
 #include <list>
@@ -31,6 +34,7 @@ public:
 	bool isEqual(AStar_Node* rhs);
 
 	float getF();
+	float getG();
 
 	void setG(float);
 	void setH(float);
@@ -41,9 +45,10 @@ public:
 	void setVisited(bool);
 
 	AStar_Node* getParent();
+	void setParent(AStar_Node* newParent);
 
 	Vector2* getPosition();
-
-	bool isEqual(AStar_Node* node);
 };
+
+#endif
 

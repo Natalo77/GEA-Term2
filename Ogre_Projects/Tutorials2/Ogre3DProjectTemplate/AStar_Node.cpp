@@ -20,11 +20,17 @@ AStar_Node::AStar_Node(Vector2 * position)
 bool AStar_Node::isEqual(AStar_Node * rhs)
 {
 	return (m_position->distance(*rhs->getPosition()) < 0.01f);
+
 }
 
 float AStar_Node::getF()
 {
 	return m_g + m_h;
+}
+
+float AStar_Node::getG()
+{
+	return this->m_g;
 }
 
 void AStar_Node::setG(float g)
@@ -57,12 +63,14 @@ AStar_Node * AStar_Node::getParent()
 	return m_parent;
 }
 
+void AStar_Node::setParent(AStar_Node * newParent)
+{
+	m_parent = newParent;
+}
+
 Vector2 * AStar_Node::getPosition()
 {
 	return m_position;
 }
 
-bool AStar_Node::isEqual(AStar_Node* node)
-{
-	return node->getPosition() == this->m_position;
-}
+
