@@ -1,16 +1,42 @@
+//=====================================================
+//			Filename: Ogre3DApplication.h
+//=====================================================
 #pragma once
 
+//=====================================================
+//					Libraries
+//=====================================================
 #include <Ogre.h>
 #include <OgreApplicationContext.h>
 #include <Bites/OgreApplicationContext.h>
 #include <Bites/OgreTrays.h>
 #include <OgreViewport.h>
-
-//new includes.
 #include <Terrain/OgreTerrain.h>
 #include <Terrain/OgreTerrainGroup.h>
 
+/*C+C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C
+  Class:    Ogre3DApplication
 
+  Summary:  A Class to control the entire Ogre3D Application as of present.
+
+  Methods:  ====================== PUBLIC ======================
+			Ogre3DApplication()
+				Default constructor for the Ogre3DApplication.
+			~Ogre3DApplication()
+				Default deconstructor for the Ogre3DApplication.
+
+			virtual void setup() override
+				From OgreBites::ApplicationContext
+				Handles the setup of the screen and ogre rendering system.
+
+			virtual bool keyPressed(const KeyboardEvent &evt)
+				From OgreBites::InputListener.
+				Handles and processes user input.
+
+			====================== PRIVATE ====================
+			Ogre::Real getAspectRatio(Ogre::Viewport* vp)
+				Returns the aspect ration of the current screen.
+C---C---C---C---C---C---C---C---C---C---C---C---C---C---C---C---C-C*/
 class Ogre3DApplication : public OgreBites::ApplicationContext, public OgreBites::InputListener
 {
 public:
@@ -26,9 +52,6 @@ public:
 
 private:
 	//Class methods.
-	/// <summary>
-	/// Returns the aspect ratio of the current screen.
-	/// </summary>
 	Ogre::Real getAspectRatio(Ogre::Viewport* vp);
 
 };
