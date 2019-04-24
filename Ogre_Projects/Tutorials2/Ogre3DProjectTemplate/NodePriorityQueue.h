@@ -31,7 +31,7 @@ class AStar_Node;
 				Use to queue an AStarNode taking into account its heuristic and
 				cost metrics.
 C---C---C---C---C---C---C---C---C---C---C---C---C---C---C---C---C-C*/
-class NodePriorityQueue : public PriorityQueue<AStar_Node>
+class NodePriorityQueue : public PriorityQueue<AStar_Node*>
 {
 public:
 	NodePriorityQueue();

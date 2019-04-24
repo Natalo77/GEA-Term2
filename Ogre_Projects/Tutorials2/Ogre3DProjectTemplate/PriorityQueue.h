@@ -36,11 +36,27 @@ public:
 	PriorityQueue<T>();
 	~PriorityQueue();
 
-	bool Contains(T object);
+	bool Contains(const T& object);
 
-	T* DeQueue();
+	T DeQueue();
 	void EnQueue(const T& element);
 };
+
+/*M+M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M
+  Method:   PriorityQueue
+
+  Summary:  The default constructor of a priorityQueue object.
+
+  Modifies: [none].
+
+  Returns:  PriorityQueue<T>
+				the newly created PriorityQueue object containing objects
+				of type T.
+M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M-M*/
+template<class T>
+inline PriorityQueue<T>::PriorityQueue()
+{
+}
 
 /*M+M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M
   Method:   ~PriorityQueue()
@@ -52,7 +68,6 @@ M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M-M*/
 template<class T>
 inline PriorityQueue<T>::~PriorityQueue()
 {
-	super();
 }
 
 /*M+M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M
@@ -72,19 +87,14 @@ inline PriorityQueue<T>::~PriorityQueue()
 				false if the element was not found or the list is empty.
 M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M-M*/
 template<class T>
-inline bool PriorityQueue<T>::Contains(T object)
+inline bool PriorityQueue<T>::Contains(const T& object)
 {
 	if (this->empty())
 		return false;
 	else
 	{
-		for (std::list<T*>::iterator iter = this->begin();	//Iterator at start of AStar_Edge list.
-			iter != this->end();										//Until iterator reaches end of list.
-			iter++)
-		{
-			if (*object == *iter)
-				return true;
-		}
+		if (std::find(this->begin(), this->end(), object) != this->end())
+			return true;
 	}
 	return false;
 }
@@ -101,11 +111,11 @@ inline bool PriorityQueue<T>::Contains(T object)
 				a pointer to the T object dequeued.
 M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M-M*/
 template<class T>
-inline T * PriorityQueue<T>::DeQueue()
+inline T PriorityQueue<T>::DeQueue()
 {
 	T back = this->front();
-	this->pop_front;
-	return &back;
+	this->pop_front();
+	return back;
 }
 
 /*M+M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M

@@ -3,6 +3,13 @@
 //=====================================================
 #pragma once
 
+
+class CameraController;
+class InputController;
+namespace Ogre {
+	class SceneManager;
+}
+
 //=====================================================
 //					Libraries
 //=====================================================
@@ -49,9 +56,21 @@ public:
 
 	//Overriden methods from OgreBits::InputListener:
 	virtual bool keyPressed(const OgreBites::KeyboardEvent &evt) override;
+	virtual bool mouseWheelRolled(const OgreBites::MouseWheelEvent & evt) override;
+	virtual bool mousePressed(const OgreBites::MouseButtonEvent & evt) override;
+
 
 private:
 	//Class methods.
-	Ogre::Real getAspectRatio(Ogre::Viewport* vp);
+	
+
+	void SetupResources();
+
+private:
+	CameraController* camControl;
+
+	InputController* inControl;
+
+	Ogre::SceneManager* scnMgr;
 
 };

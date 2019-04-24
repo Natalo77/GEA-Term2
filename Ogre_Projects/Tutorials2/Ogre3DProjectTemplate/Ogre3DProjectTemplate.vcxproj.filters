@@ -19,6 +19,24 @@
     <Filter Include="Source Files\Pathfinding">
       <UniqueIdentifier>{48c2bf0b-1a16-4f2d-b2ba-7c725155ebd0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\IO">
+      <UniqueIdentifier>{5c382f61-0579-4854-a59f-de3d007c551b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\IO">
+      <UniqueIdentifier>{b175b2d6-6c61-4c3e-8881-8a1047671bb5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Physics">
+      <UniqueIdentifier>{4c5f1c64-52e6-4eb9-ab41-25044ed56ee6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Physics">
+      <UniqueIdentifier>{1bca3c9b-88e9-4148-a4dc-7180224bc689}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scene">
+      <UniqueIdentifier>{80e06794-27d9-4a75-a41c-ed5fdfc677d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scene">
+      <UniqueIdentifier>{54bdca79-2c20-49dd-8c25-9bbe33d42250}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ogre3DApplication.h">
@@ -39,8 +57,23 @@
     <ClInclude Include="PriorityQueue.h">
       <Filter>Header Files\Pathfinding</Filter>
     </ClInclude>
-    <ClInclude Include="List.h">
+    <ClInclude Include="NodePriorityQueue.h">
       <Filter>Header Files\Pathfinding</Filter>
+    </ClInclude>
+    <ClInclude Include="AList.h">
+      <Filter>Header Files\Pathfinding</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraController.h">
+      <Filter>Header Files\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="InputController.h">
+      <Filter>Header Files\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="RayCasting.h">
+      <Filter>Header Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile.h">
+      <Filter>Header Files\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -62,8 +95,23 @@
     <ClCompile Include="PriorityQueue.cpp">
       <Filter>Source Files\Pathfinding</Filter>
     </ClCompile>
-    <ClCompile Include="List.cpp">
+    <ClCompile Include="NodePriorityQueue.cpp">
       <Filter>Source Files\Pathfinding</Filter>
+    </ClCompile>
+    <ClCompile Include="AList.cpp">
+      <Filter>Source Files\Pathfinding</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraController.cpp">
+      <Filter>Source Files\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="InputController.cpp">
+      <Filter>Source Files\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="RayCasting.cpp">
+      <Filter>Source Files\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Tile.cpp">
+      <Filter>Source Files\Scene</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

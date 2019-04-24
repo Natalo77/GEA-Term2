@@ -1,1 +1,8 @@
-﻿
+﻿  AStar.cpp
+  AStar_Node.cpp
+  NodePriorityQueue.cpp
+  PriorityQueue.cpp
+AStar.obj : error LNK2001: unresolved external symbol "public: __cdecl List<class AStar_Node *>::List<class AStar_Node *>(void)" (??0?$List@PEAVAStar_Node@@@@QEAA@XZ)
+AStar.obj : error LNK2001: unresolved external symbol "public: __cdecl List<class AStar_Node>::List<class AStar_Node>(void)" (??0?$List@VAStar_Node@@@@QEAA@XZ)
+NodePriorityQueue.obj : error LNK2001: unresolved external symbol "public: __cdecl PriorityQueue<class AStar_Node *>::PriorityQueue<class AStar_Node *>(void)" (??0?$PriorityQueue@PEAVAStar_Node@@@@QEAA@XZ)
+E:\_PROGRAMMING\GEA-term2\Ogre_Projects\Tutorials2\x64\Release\Ogre3DProjectTemplate.exe : fatal error LNK1120: 3 unresolved externals

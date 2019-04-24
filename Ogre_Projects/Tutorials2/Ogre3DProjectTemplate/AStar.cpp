@@ -6,11 +6,15 @@
 //=====================================================
 //					Defined Libraries
 //=====================================================
-#include "AStar.h"
+
 #include "AStar_Edge.h"
-#include "NodePriorityQueue.h"
 #include "AStar_Node.h"
-#include "List.h"
+#include "NodePriorityQueue.h"
+#include "AList.h"
+#include "AStar.h"
+
+
+
 
 
 /*M+M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M
@@ -51,15 +55,15 @@ AStar::~AStar()
 
   Modifies: [none].
 
-  Returns:  List<AStar_Node>*
-				A pointer to a List containing a path from start to dest.
+  Returns:  AList<AStar_Node>*
+				A pointer to a AList containing a path from start to dest.
 				nullptr if no path could be found.
 M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M-M*/
-List<AStar_Node>* AStar::AStarSearch(AStar_Node * start, AStar_Node * dest)
+AList<AStar_Node>* AStar::AStarSearch(AStar_Node * start, AStar_Node * dest)
 {
 	// Initialize an open and closed list.
 	NodePriorityQueue* open = new NodePriorityQueue();
-	List<AStar_Node*>* closed = new List<AStar_Node*>();
+	AList<AStar_Node*>* closed = new AList<AStar_Node*>();
 
 	// Visit the first node and compute the heuristics for it.
 	start->setVisited(true);
@@ -67,7 +71,7 @@ List<AStar_Node>* AStar::AStarSearch(AStar_Node * start, AStar_Node * dest)
 	start->setH(ComputeHeuristic(start, dest));
 
 	// Add the starting node to the Priority queue.
-	open->push_back(*start);
+	open->push_back(start);
 
 	// While there are still elements to be visited.
 	while (!open->empty())
@@ -94,7 +98,7 @@ List<AStar_Node>* AStar::AStarSearch(AStar_Node * start, AStar_Node * dest)
 			AStar_Node* nextNode = edge->GetNode();
 
 			// If the nextNode has not been visited.
-			if (!open->Contains(*nextNode) && !closed->Contains(nextNode))
+			if (!open->Contains(nextNode) && !closed->Contains(nextNode))
 			{
 				// Calculate the cost and heuristic for this node to the destination node.
 				nextNode->setG(distance + currentNode->getG());
@@ -115,7 +119,7 @@ List<AStar_Node>* AStar::AStarSearch(AStar_Node * start, AStar_Node * dest)
 				nextNode->setH(ComputeHeuristic(nextNode, dest));
 
 				// remove the nextNode from the open and closed.
-				open->remove(*nextNode);
+				open->remove(nextNode);
 				closed->Remove(nextNode);
 
 				// then requeue it for the new path calculations
@@ -165,19 +169,19 @@ float AStar::ComputeHeuristic(AStar_Node * n1, AStar_Node * n2)
 
   Modifies: [none].
 
-  Returns:  List<AStar_Node>
+  Returns:  AList<AStar_Node>
 				a list of nodes in reverse order (dest at the front) representing
 				the path to dest from the final node in the list.
 M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M-M*/
-List<AStar_Node>* AStar::ConstructPath(AStar_Node * dest)
+AList<AStar_Node>* AStar::ConstructPath(AStar_Node * dest)
 {
 	// Create a list to store the path in and add the dest node.
-	List<AStar_Node>* path = new List<AStar_Node>();
+	AList<AStar_Node>* path = new AList<AStar_Node>();
 	AStar_Node current = *dest;
 	path->push_back(current);
 
 	// While there is still a parent to the current node.
-	while (current.getParent() != nullptr)
+	while ( nullptr != current.getParent())
 	{
 		// Update the current node with its parent.
 		current = *current.getParent();

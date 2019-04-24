@@ -174,19 +174,29 @@
     <ClInclude Include="AStar.h" />
     <ClInclude Include="AStar_Edge.h" />
     <ClInclude Include="AStar_Node.h" />
-    <ClInclude Include="List.h" />
+    <ClInclude Include="AList.h" />
+    <ClInclude Include="CameraController.h" />
+    <ClInclude Include="InputController.h" />
+    <ClInclude Include="NodePriorityQueue.h" />
     <ClInclude Include="Ogre3DApplication.h" />
     <ClInclude Include="PriorityQueue.h" />
+    <ClInclude Include="RayCasting.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="Tile.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AStar.cpp" />
     <ClCompile Include="AStar_Edge.cpp" />
     <ClCompile Include="AStar_Node.cpp" />
-    <ClCompile Include="List.cpp" />
+    <ClCompile Include="AList.cpp" />
+    <ClCompile Include="CameraController.cpp" />
+    <ClCompile Include="InputController.cpp" />
+    <ClCompile Include="NodePriorityQueue.cpp" />
     <ClCompile Include="Ogre3DApplication.cpp" />
     <ClCompile Include="Ogre3DProjectTemplate.cpp" />
     <ClCompile Include="PriorityQueue.cpp" />
+    <ClCompile Include="RayCasting.cpp" />
+    <ClCompile Include="Tile.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
