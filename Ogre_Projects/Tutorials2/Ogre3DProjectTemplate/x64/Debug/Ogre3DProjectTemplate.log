@@ -1,8 +1,4 @@
-﻿  InputController.cpp
-  Ogre3DApplication.cpp
-  Ogre3DProjectTemplate.cpp
-  Tile.cpp
-e:\_programming\gea-term2\ogre_projects\tutorials2\ogre3dprojecttemplate\inputcontroller.cpp(30): warning C4244: 'argument': conversion from 'const int' to 'Ogre::Real', possible loss of data
-e:\_programming\gea-term2\ogre_projects\tutorials2\ogre3dprojecttemplate\ogre3dapplication.cpp(234): warning C4996: 'Ogre::ConfigFile::getSectionIterator': was declared deprecated
+﻿  Ogre3DApplication.cpp
+e:\_programming\gea-term2\ogre_projects\tutorials2\ogre3dprojecttemplate\ogre3dapplication.cpp(253): warning C4996: 'Ogre::ConfigFile::getSectionIterator': was declared deprecated
   e:\_programming\gea-term2\ogre_projects\tutorials2\ogre3d\include\ogre\ogreconfigfile.h(94): note: see declaration of 'Ogre::ConfigFile::getSectionIterator'
   Ogre3DProjectTemplate.vcxproj -> E:\_PROGRAMMING\GEA-term2\Ogre_Projects\Tutorials2\x64\Debug\Ogre3DProjectTemplate.exe

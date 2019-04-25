@@ -24,12 +24,12 @@ InputController::~InputController()
 void InputController::MouseClick(
 	const OgreBites::MouseButtonEvent & evt,
 	const CameraController &camControl,
-	Ogre::SceneManager &scnMgr)
+	Ogre::SceneManager &scnMgr,
+	Ogre::Vector3 *& result,
+	Ogre::Entity *& collided)
 {
 	Ogre::Ray ray;
 	camControl.GetCameraToViewportRay(evt.x, evt.y, &ray);
-	Ogre::Vector3* result = new Ogre::Vector3();
-	Ogre::Entity* collided = nullptr;
 
-	rayCaster->RayCast(ray, *result, collided, scnMgr);
+	rayCaster->RayCast(ray, result, collided, scnMgr);
 }

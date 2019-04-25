@@ -1,11 +1,19 @@
 #pragma once
 
 namespace Ogre {
-	class Entity;
 	class SceneManager;
 }
 
 #include <OgreString.h>
+#include <OgreEntity.h>
+
+struct EntityComparable
+{
+	bool operator() (const Ogre::Entity& lhs, const Ogre::Entity& rhs) const
+	{
+		return lhs.getName() < rhs.getName();
+	}
+};
 
 class Tile
 {

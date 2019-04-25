@@ -11,6 +11,7 @@
 #include "CameraController.h"
 #include "InputController.h"
 #include "Tile.h"
+#include "TileManager.h"
 
 
 //=====================================================
@@ -83,7 +84,19 @@ bool Ogre3DApplication::mouseWheelRolled(const OgreBites::MouseWheelEvent & evt)
 
 bool Ogre3DApplication::mousePressed(const OgreBites::MouseButtonEvent & evt)
 {
-	inControl->MouseClick(evt, *camControl, *scnMgr);
+	Ogre::Vector3* result = nullptr;
+	Ogre::Entity* collided = nullptr;
+
+	inControl->MouseClick(evt, *camControl, *scnMgr, result, collided);
+
+	if (result != nullptr && collided != nullptr)
+	{
+		Tile* tileCollided = nullptr;
+		tileMgr->Find(tileCollided, *collided);
+
+		
+	}
+
 	return true;
 }
 
@@ -143,7 +156,11 @@ void Ogre3DApplication::setup()
 	//Add some objects to render in the scene.
 #pragma region 3. Add objects to render.
 
+	// Load all resources required.
 	SetupResources();
+
+	// Create the tilemanager.
+	tileMgr = new TileManager();
 
 	// Load the tiles.
 #pragma region 3.1 Loading Tiles for level
@@ -152,11 +169,13 @@ void Ogre3DApplication::setup()
 	int gridSize = 20;
 	int numberOfEntities = gridSize * gridSize;
 
-	Tile* tileEntity = new Tile(*scnMgr, nameOfTile, "Grass");
+	
 	StaticGeometry* tileNodeGeometry = scnMgr->createStaticGeometry("TilesArea");
 
 	for (int i = 0; i < numberOfEntities; i++)
 	{
+		Tile* tile = new Tile(*scnMgr, nameOfTile, "Grass");
+
 		int zOffsetMultiplier = (i / gridSize);
 		int xOffsetMultiplier = (zOffsetMultiplier % 2 == 0) ? (i % gridSize) * 2 : ((i % gridSize) * 2) + 1;
 		zOffsetMultiplier *= 2;
@@ -167,7 +186,9 @@ void Ogre3DApplication::setup()
 		Vector3 position(xOffsetMultiplier * xOffset, 0, zOffsetMultiplier * zOffset);
 		Quaternion quat(Radian(Degree(90)), Vector3::UNIT_X);
 
-		tileNodeGeometry->addEntity(tileEntity->GetEntity(), position, quat);
+		tileMgr->Add(*tile);
+
+		tileNodeGeometry->addEntity(tile->GetEntity(), position, quat);
 	}
 
 	tileNodeGeometry->build();

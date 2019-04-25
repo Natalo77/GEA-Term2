@@ -1,8 +1,18 @@
 ﻿  AStar.cpp
-  AStar_Node.cpp
+  AList.cpp
+  CameraController.cpp
+  InputController.cpp
+e:\_programming\gea-term2\ogre_projects\tutorials2\ogre3dprojecttemplate\inputcontroller.cpp(32): warning C4244: 'argument': conversion from 'const int' to 'Ogre::Real', possible loss of data
   NodePriorityQueue.cpp
+  Ogre3DApplication.cpp
+  Ogre3DProjectTemplate.cpp
+e:\_programming\gea-term2\ogre_projects\tutorials2\ogre3dprojecttemplate\cameracontroller.cpp(63): warning C4244: 'argument': conversion from 'int' to 'Ogre::Real', possible loss of data
   PriorityQueue.cpp
-AStar.obj : error LNK2001: unresolved external symbol "public: __cdecl List<class AStar_Node *>::List<class AStar_Node *>(void)" (??0?$List@PEAVAStar_Node@@@@QEAA@XZ)
-AStar.obj : error LNK2001: unresolved external symbol "public: __cdecl List<class AStar_Node>::List<class AStar_Node>(void)" (??0?$List@VAStar_Node@@@@QEAA@XZ)
-NodePriorityQueue.obj : error LNK2001: unresolved external symbol "public: __cdecl PriorityQueue<class AStar_Node *>::PriorityQueue<class AStar_Node *>(void)" (??0?$PriorityQueue@PEAVAStar_Node@@@@QEAA@XZ)
-E:\_PROGRAMMING\GEA-term2\Ogre_Projects\Tutorials2\x64\Release\Ogre3DProjectTemplate.exe : fatal error LNK1120: 3 unresolved externals
+  RayCasting.cpp
+  Tile.cpp
+e:\_programming\gea-term2\ogre_projects\tutorials2\ogre3dprojecttemplate\ogre3dapplication.cpp(255): warning C4996: 'Ogre::ConfigFile::getSectionIterator': was declared deprecated
+  e:\_programming\gea-term2\ogre_projects\tutorials2\ogre3d\include\ogre\ogreconfigfile.h(94): note: see declaration of 'Ogre::ConfigFile::getSectionIterator'
+e:\_programming\gea-term2\ogre_projects\tutorials2\ogre3dprojecttemplate\raycasting.cpp(85): warning C4700: uninitialized local variable 'indices' used
+  TileManager.cpp
+  LINK : /LTCG specified but no code generation required; remove /LTCG from the link command line to improve linker performance
+  Ogre3DProjectTemplate.vcxproj -> E:\_PROGRAMMING\GEA-term2\Ogre_Projects\Tutorials2\x64\Release\Ogre3DProjectTemplate.exe

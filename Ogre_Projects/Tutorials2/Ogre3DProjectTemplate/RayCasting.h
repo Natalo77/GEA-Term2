@@ -8,6 +8,7 @@ namespace Ogre
 	class Quaternion;
 	class Ray;
 }
+class Tile;
 
 #include <OGRE/OgreMath.h>
 
@@ -21,8 +22,8 @@ public:
 
 	bool RayCast(
 		Ogre::Ray &ray, 
-		Ogre::Vector3 &result,
-		Ogre::Entity *& collided, 
+		Ogre::Vector3 *& result,
+		Ogre::Entity *& collided,
 		Ogre::SceneManager& scnMgrRef);
 
 private:

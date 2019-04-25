@@ -183,6 +183,7 @@
     <ClInclude Include="RayCasting.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Tile.h" />
+    <ClInclude Include="TileManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AStar.cpp" />
@@ -197,6 +198,7 @@
     <ClCompile Include="PriorityQueue.cpp" />
     <ClCompile Include="RayCasting.cpp" />
     <ClCompile Include="Tile.cpp" />
+    <ClCompile Include="TileManager.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

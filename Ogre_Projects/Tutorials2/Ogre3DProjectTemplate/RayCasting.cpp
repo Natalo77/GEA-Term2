@@ -24,7 +24,7 @@ RayCasting::~RayCasting()
 
 bool RayCasting::RayCast(
 	Ogre::Ray &ray,
-	Ogre::Vector3 & result, 
+	Ogre::Vector3 *& result, 
 	Ogre::Entity *& collided,
 	Ogre::SceneManager& scnMgrRef)
 {
@@ -123,7 +123,7 @@ bool RayCasting::RayCast(
 	if (tempClosestDistance >= 0.0f)
 	{
 		// raycast success
-		result = tempClosestResult;
+		result = &tempClosestResult;
 		collided = collEntity;
 		return true;
 	}

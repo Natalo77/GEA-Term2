@@ -6,6 +6,7 @@
 
 class CameraController;
 class InputController;
+class TileManager;
 namespace Ogre {
 	class SceneManager;
 }
@@ -72,5 +73,7 @@ private:
 	InputController* inControl;
 
 	Ogre::SceneManager* scnMgr;
+
+	TileManager* tileMgr;
 
 };
