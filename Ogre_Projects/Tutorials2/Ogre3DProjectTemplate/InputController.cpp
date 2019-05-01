@@ -10,6 +10,7 @@
 
 
 
+
 InputController::InputController()
 {
 	rayCaster = new RayCasting();
@@ -31,5 +32,5 @@ void InputController::MouseClick(
 	Ogre::Ray ray;
 	camControl.GetCameraToViewportRay(evt.x, evt.y, &ray);
 
-	rayCaster->RayCast(ray, result, collided, scnMgr);
+	rayCaster->RayCast(ray, *result, collided, scnMgr);
 }

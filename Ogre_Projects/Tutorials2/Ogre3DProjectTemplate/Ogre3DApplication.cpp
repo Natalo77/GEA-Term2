@@ -84,15 +84,18 @@ bool Ogre3DApplication::mouseWheelRolled(const OgreBites::MouseWheelEvent & evt)
 
 bool Ogre3DApplication::mousePressed(const OgreBites::MouseButtonEvent & evt)
 {
-	Ogre::Vector3* result = nullptr;
-	Ogre::Entity* collided = nullptr;
+	Ogre::Vector3* result = new Ogre::Vector3();
+	Ogre::Entity* collided = NULL;
 
 	inControl->MouseClick(evt, *camControl, *scnMgr, result, collided);
 
-	if (result != nullptr && collided != nullptr)
+	if (result != NULL && collided != NULL)
 	{
-		Tile* tileCollided = nullptr;
+		Tile* tileCollided = NULL;
 		tileMgr->Find(tileCollided, *collided);
+
+		if (tileCollided != NULL)
+			tileCollided->GetEntity()->setVisible(false);
 
 		
 	}
@@ -168,14 +171,11 @@ void Ogre3DApplication::setup()
 	String nameOfTile = "GrassTile.mesh";
 	int gridSize = 20;
 	int numberOfEntities = gridSize * gridSize;
-
 	
-	StaticGeometry* tileNodeGeometry = scnMgr->createStaticGeometry("TilesArea");
+	// StaticGeometry* tileNodeGeometry = scnMgr->createStaticGeometry("TilesArea");
 
 	for (int i = 0; i < numberOfEntities; i++)
 	{
-		Tile* tile = new Tile(*scnMgr, nameOfTile, "Grass");
-
 		int zOffsetMultiplier = (i / gridSize);
 		int xOffsetMultiplier = (zOffsetMultiplier % 2 == 0) ? (i % gridSize) * 2 : ((i % gridSize) * 2) + 1;
 		zOffsetMultiplier *= 2;
@@ -186,12 +186,14 @@ void Ogre3DApplication::setup()
 		Vector3 position(xOffsetMultiplier * xOffset, 0, zOffsetMultiplier * zOffset);
 		Quaternion quat(Radian(Degree(90)), Vector3::UNIT_X);
 
+		Tile* tile = new Tile(*scnMgr, nameOfTile, "Grass", position, quat);
+
 		tileMgr->Add(*tile);
 
-		tileNodeGeometry->addEntity(tile->GetEntity(), position, quat);
+		// tileNodeGeometry->addEntity(tile->GetEntity(), position, quat);
 	}
 
-	tileNodeGeometry->build();
+	// tileNodeGeometry->build();
 
 #pragma endregion
 

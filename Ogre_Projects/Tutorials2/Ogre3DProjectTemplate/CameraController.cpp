@@ -8,6 +8,7 @@
 #include <OgreCamera.h>
 #include <OgreViewport.h>
 #include <OGRE/OgreMath.h>
+#include <OGRE/Bites/OgreTrays.h>
 
 
 #include "Ogre3DApplication.h"
@@ -79,7 +80,10 @@ Ogre::Vector3 CameraController::GetDirection() const
 
 void CameraController::GetCameraToViewportRay(Ogre::Real x, Ogre::Real y, Ogre::Ray * out) const
 {
-	camera->getCameraToViewportRay(x, y, out);
+	//camera->getCameraToViewportRay(x, y, out);
+
+	const Ogre::Vector2 pt(x / viewPort->getActualWidth(), y / viewPort->getActualHeight());
+	*out = OgreBites::TrayManager::screenToScene(camera, pt);
 }
 
 

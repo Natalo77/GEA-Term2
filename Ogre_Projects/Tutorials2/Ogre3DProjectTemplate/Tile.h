@@ -2,8 +2,10 @@
 
 namespace Ogre {
 	class SceneManager;
+	class SceneNode;
 }
 
+#include <OgreMath.h>
 #include <OgreString.h>
 #include <OgreEntity.h>
 
@@ -20,11 +22,18 @@ class Tile
 public:
 	Tile();
 	~Tile();
-	Tile(Ogre::SceneManager &scnMgr, Ogre::String &name, const Ogre::String materialName);
+	Tile(
+		Ogre::SceneManager &scnMgr, 
+		Ogre::String &name, 
+		const Ogre::String materialName,
+		const Ogre::Vector3 &position,
+		const Ogre::Quaternion &rotation);
 
 	Ogre::Entity* GetEntity();
 
 private:
 	Ogre::Entity* entity;
+
+	Ogre::SceneNode* node;
 };
 
