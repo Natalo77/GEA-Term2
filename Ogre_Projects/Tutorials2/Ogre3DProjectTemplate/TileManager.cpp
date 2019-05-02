@@ -1,4 +1,5 @@
 #include "TileManager.h"
+#include "Tile.h"
 
 
 
@@ -6,12 +7,17 @@
 TileManager::TileManager()
 {
 	tiles = new std::vector<Tile*>();
+	currentGoalTile = NULL;
 }
 
 
 TileManager::~TileManager()
 {
-	delete [] tiles;
+	if(tiles)
+		delete [] tiles;
+	if (currentGoalTile)
+		delete currentGoalTile;
+	
 }
 
 
@@ -37,4 +43,19 @@ bool TileManager::Find(Tile *& result, Ogre::Entity & entity)
 
 
 	return false;
+}
+
+
+void TileManager::SetGoal(Tile *& goalTile)
+{
+	if (currentGoalTile)
+		currentGoalTile->CycleState();
+
+	if (currentGoalTile != goalTile)
+	{
+		currentGoalTile = goalTile;
+		currentGoalTile->SetGoal();
+	}
+		
+	
 }

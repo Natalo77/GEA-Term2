@@ -1,10 +1,2 @@
-﻿  Agent.cpp
-  Ogre3DApplication.cpp
-  Tile.cpp
-  TileManager.cpp
-e:\_programming\gea-term2\ogre_projects\tutorials2\ogre3dprojecttemplate\tile.h(72): warning C4715: 'operator++': not all control paths return a value
-e:\_programming\gea-term2\ogre_projects\tutorials2\ogre3dprojecttemplate\tile.h(100): warning C4715: 'Tile::getMaterialName': not all control paths return a value
-e:\_programming\gea-term2\ogre_projects\tutorials2\ogre3dprojecttemplate\tile.h(86): warning C4715: 'Tile::getMeshName': not all control paths return a value
-e:\_programming\gea-term2\ogre_projects\tutorials2\ogre3dprojecttemplate\ogre3dapplication.cpp(280): warning C4996: 'Ogre::ConfigFile::getSectionIterator': was declared deprecated
-  e:\_programming\gea-term2\ogre_projects\tutorials2\ogre3d\include\ogre\ogreconfigfile.h(94): note: see declaration of 'Ogre::ConfigFile::getSectionIterator'
+﻿  TileManager.cpp
   Ogre3DProjectTemplate.vcxproj -> E:\_PROGRAMMING\GEA-term2\Ogre_Projects\Tutorials2\x64\Debug\Ogre3DProjectTemplate.exe

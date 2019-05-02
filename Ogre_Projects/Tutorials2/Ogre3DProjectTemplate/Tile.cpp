@@ -4,6 +4,7 @@
 #include <OgreSceneManager.h>
 #include <OgreEntity.h>
 #include <OgreSceneNode.h>
+#include <OgreSubEntity.h>
 
 
 
@@ -68,12 +69,17 @@ Tile::State Tile::CycleState()
 {
 	currentState++;
 
-	Ogre::String newMeshString = getMeshName(currentState);
-	Ogre::String newMaterialString = getMaterialName(currentState);
-
-	ChangeMesh(newMeshString, newMaterialString);
+	UpdateModel();
 
 	return currentState;
+}
+
+
+void Tile::SetGoal()
+{
+	currentState = Tile::TILE_GOAL;
+
+	UpdateModel();
 }
 
 
@@ -83,11 +89,21 @@ Tile::State Tile::GetState()
 }
 
 
-void Tile::ChangeMesh(Ogre::String meshName, Ogre::String materialName)
+void Tile::ChangeMesh(Ogre::String &meshName, std::vector<Ogre::String> &materialNames)
 {
 	this->node->detachAllObjects();
 	this->entity = this->scnMgr->createEntity(meshName);
-	this->entity->setMaterialName(materialName);
+
+	int i = 0;
+	for (std::vector<Ogre::String>::iterator iter = materialNames.begin();
+		iter != materialNames.end();
+		iter++)
+	{
+		Ogre::String tempMatName = *iter;
+		this->entity->getSubEntity(i)->setMaterialName(tempMatName);
+		i++;
+	}
+
 	this->entity->setCastShadows(true);
 	this->node->attachObject(this->entity);
 

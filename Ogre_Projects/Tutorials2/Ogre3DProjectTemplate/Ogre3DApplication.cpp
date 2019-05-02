@@ -95,7 +95,7 @@ bool Ogre3DApplication::mousePressed(const OgreBites::MouseButtonEvent & evt)
 		Tile* tileCollided = NULL;
 		tileMgr->Find(tileCollided, *collided);
 
-		if (tileCollided != NULL)
+		if (tileCollided != NULL && tileCollided->GetNode() != mAgent->GetNode())
 			switch (evt.button)
 			{
 			case OgreBites::BUTTON_LEFT:
@@ -104,6 +104,9 @@ bool Ogre3DApplication::mousePressed(const OgreBites::MouseButtonEvent & evt)
 			case OgreBites::BUTTON_RIGHT:
 				if(tileCollided->GetState() == Tile::TILE_GRASS)
 					mAgent->SetNode(tileCollided->GetNode());
+				break;
+			case OgreBites::BUTTON_MIDDLE:
+				tileMgr->SetGoal(tileCollided);
 				break;
 			}
 			

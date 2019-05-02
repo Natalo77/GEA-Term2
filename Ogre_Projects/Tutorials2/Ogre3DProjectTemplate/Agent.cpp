@@ -59,6 +59,12 @@ void Agent::SetNode(AStar_Node * node)
 }
 
 
+AStar_Node * Agent::GetNode()
+{
+	return mCurrentNode;
+}
+
+
 void Agent::Setup(Ogre::SceneManager *& scnMgr)
 {
 	g_scnMgr = scnMgr;

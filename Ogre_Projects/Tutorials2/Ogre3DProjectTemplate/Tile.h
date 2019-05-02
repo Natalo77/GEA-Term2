@@ -10,6 +10,8 @@ namespace Ogre {
 #include <OgreString.h>
 #include <OgreEntity.h>
 
+#include <vector>
+
 struct EntityComparable
 {
 	bool operator() (const Ogre::Entity& lhs, const Ogre::Entity& rhs) const
@@ -21,7 +23,7 @@ struct EntityComparable
 class Tile
 {
 public:
-	enum State { TILE_GRASS, TILE_MOUNTAIN, TILE_NA };
+	enum State { TILE_GRASS, TILE_MOUNTAIN, TILE_GOAL, TILE_NA };
 
 	Tile();
 	~Tile();
@@ -36,13 +38,16 @@ public:
 	AStar_Node* GetNode();
 
 	State CycleState();
+	void SetGoal();
 	State GetState();
 
 private:
-	inline Ogre::String getMeshName(State state);
-	inline Ogre::String getMaterialName(State state);
+	inline void UpdateModel();
 
-	void ChangeMesh(Ogre::String, Ogre::String);
+	inline Ogre::String getMeshName(State state);
+	inline std::vector<Ogre::String> getMaterialName(State state);
+
+	void ChangeMesh(Ogre::String&, std::vector<Ogre::String>&);
 
 private:
 	State currentState;
@@ -56,6 +61,16 @@ private:
 	AStar_Node* m_AStarNode;
 };
 
+
+inline void Tile::UpdateModel()
+{
+	Ogre::String newMeshString = getMeshName(currentState);
+	std::vector<Ogre::String> newMaterialStrings = getMaterialName(currentState);
+
+	ChangeMesh(newMeshString, newMaterialStrings);
+}
+
+
 inline Tile::State operator ++(Tile::State& state, int)
 {
 	switch (state)
@@ -67,6 +82,9 @@ inline Tile::State operator ++(Tile::State& state, int)
 		state = Tile::TILE_GRASS;
 		return state;
 	case Tile::TILE_NA:
+		return state;
+	case Tile::TILE_GOAL:
+		state = Tile::TILE_GRASS;
 		return state;
 	}
 }
@@ -82,20 +100,33 @@ inline Ogre::String Tile::getMeshName(Tile::State state)
 		return "MountainTile.mesh";
 	case Tile::TILE_NA:
 		return "GrassTile.mesh";
+	case Tile::TILE_GOAL:
+		return "GoalTile.mesh";
 	}
 }
 
 
-inline Ogre::String Tile::getMaterialName(Tile::State state)
+inline std::vector<Ogre::String> Tile::getMaterialName(Tile::State state)
 {
+	std::vector<Ogre::String> temp;
+
 	switch (state)
 	{
 	case Tile::TILE_GRASS:
-		return "Grass";
+		temp.push_back("Grass");
+		break;
 	case Tile::TILE_MOUNTAIN:
-		return "Mountain";
+		temp.push_back("Mountain");
+		break;
 	case Tile::TILE_NA:
-		return "BlackAndWhite";
+		temp.push_back("BlackAndWhite");
+		break;
+	case Tile::TILE_GOAL:
+		temp.push_back("StoneGoal");
+		temp.push_back("SoilGoal");
+		break;
 	}
+
+	return temp;
 }
 
