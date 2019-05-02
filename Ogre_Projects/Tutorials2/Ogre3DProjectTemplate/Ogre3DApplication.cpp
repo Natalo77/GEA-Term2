@@ -102,7 +102,8 @@ bool Ogre3DApplication::mousePressed(const OgreBites::MouseButtonEvent & evt)
 				tileCollided->CycleState();
 				break;
 			case OgreBites::BUTTON_RIGHT:
-				mAgent->SetNode(tileCollided->GetNode());
+				if(tileCollided->GetState() == Tile::TILE_GRASS)
+					mAgent->SetNode(tileCollided->GetNode());
 				break;
 			}
 			

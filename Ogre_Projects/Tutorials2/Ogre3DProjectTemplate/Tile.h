@@ -36,6 +36,7 @@ public:
 	AStar_Node* GetNode();
 
 	State CycleState();
+	State GetState();
 
 private:
 	inline Ogre::String getMeshName(State state);

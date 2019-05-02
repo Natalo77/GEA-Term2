@@ -2,7 +2,6 @@
 
 material Grass {
     receive_shadows on
-    
 	technique {
         pass {
             lighting on
@@ -11,7 +10,6 @@ material Grass {
             diffuse 0.6400000190734865 0.6400000190734865 0.6400000190734865 1.0
             specular 0.0 0.0 0.0 1.0 12.5
             // emissive 0.040000001192092904 0.040000001192092904 0.040000001192092904 1.0
-
             
             alpha_to_coverage off 
             colour_write on 

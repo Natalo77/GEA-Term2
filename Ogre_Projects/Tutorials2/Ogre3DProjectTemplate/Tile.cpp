@@ -77,6 +77,12 @@ Tile::State Tile::CycleState()
 }
 
 
+Tile::State Tile::GetState()
+{
+	return currentState;
+}
+
+
 void Tile::ChangeMesh(Ogre::String meshName, Ogre::String materialName)
 {
 	this->node->detachAllObjects();
