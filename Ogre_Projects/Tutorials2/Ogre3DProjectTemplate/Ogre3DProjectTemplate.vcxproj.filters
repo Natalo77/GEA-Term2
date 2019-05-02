@@ -37,11 +37,14 @@
     <Filter Include="Source Files\Scene">
       <UniqueIdentifier>{54bdca79-2c20-49dd-8c25-9bbe33d42250}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Game">
+      <UniqueIdentifier>{b0eef1f9-5aa0-4efc-b4c2-231de328a06f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game">
+      <UniqueIdentifier>{e1a3152c-2c31-4b7e-a62c-1317ce476114}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Ogre3DApplication.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -78,11 +81,14 @@
     <ClInclude Include="TileManager.h">
       <Filter>Header Files\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="Agent.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Ogre3DApplication.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Ogre3DApplication.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Ogre3DProjectTemplate.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -118,6 +124,12 @@
     </ClCompile>
     <ClCompile Include="TileManager.cpp">
       <Filter>Source Files\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Agent.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Ogre3DApplication.cpp">
+      <Filter>Source Files\Game</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

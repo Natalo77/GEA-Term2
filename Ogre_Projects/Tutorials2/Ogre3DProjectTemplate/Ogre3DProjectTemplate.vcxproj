@@ -171,6 +171,7 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Agent.h" />
     <ClInclude Include="AStar.h" />
     <ClInclude Include="AStar_Edge.h" />
     <ClInclude Include="AStar_Node.h" />
@@ -186,6 +187,7 @@
     <ClInclude Include="TileManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Agent.cpp" />
     <ClCompile Include="AStar.cpp" />
     <ClCompile Include="AStar_Edge.cpp" />
     <ClCompile Include="AStar_Node.cpp" />

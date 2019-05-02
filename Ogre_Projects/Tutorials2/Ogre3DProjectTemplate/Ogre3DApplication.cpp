@@ -12,6 +12,7 @@
 #include "InputController.h"
 #include "Tile.h"
 #include "TileManager.h"
+#include "Agent.h"
 
 
 //=====================================================
@@ -194,6 +195,14 @@ void Ogre3DApplication::setup()
 	}
 
 	// tileNodeGeometry->build();
+
+#pragma endregion
+
+
+	// Create the initial agent.
+#pragma region 3.2 Agent creation
+
+	mAgent = new Agent(scnMgr);
 
 #pragma endregion
 

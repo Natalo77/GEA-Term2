@@ -1,3 +1,2 @@
-﻿  InputController.cpp
-e:\_programming\gea-term2\ogre_projects\tutorials2\ogre3dprojecttemplate\inputcontroller.cpp(36): warning C4244: 'argument': conversion from 'const int' to 'Ogre::Real', possible loss of data
+﻿  Agent.cpp
   Ogre3DProjectTemplate.vcxproj -> E:\_PROGRAMMING\GEA-term2\Ogre_Projects\Tutorials2\x64\Debug\Ogre3DProjectTemplate.exe
