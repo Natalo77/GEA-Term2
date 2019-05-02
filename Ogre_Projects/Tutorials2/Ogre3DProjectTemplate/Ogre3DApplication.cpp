@@ -340,6 +340,11 @@ void Ogre3DApplication::buttonHit(OgreBites::Button * button)
 	{
 		getRoot()->queueEndRendering();
 	}
+	else if (bttnName == "GoBTN")
+	{
+		// Go!
+	}
+
 }
 
 
@@ -383,6 +388,8 @@ void Ogre3DApplication::setupUITray(const Ogre::String & name, Ogre::RenderWindo
 
 	//Add a button
 	OgreBites::Button* quitBttn = mTrayManager->createButton(OgreBites::TL_BOTTOMLEFT, "QuitBTN", "Quit");
+
+	OgreBites::Button* goBttn = mTrayManager->createButton(OgreBites::TL_LEFT, "GoBTN", "Go!");
 
 	//Add a label
 	OgreBites::Label* titleLB = mTrayManager->createLabel(OgreBites::TL_TOP, "TitleLB", "The AI revolution", 200);
