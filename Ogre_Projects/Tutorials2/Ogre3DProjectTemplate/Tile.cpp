@@ -47,7 +47,7 @@ Tile::Tile(
 	this->entity->setCastShadows(true);
 	this->node = scnMgr.getRootSceneNode()->createChildSceneNode(position, rotation);
 	this->node->attachObject(this->entity);
-	this->node->showBoundingBox(true);
+	//this->node->showBoundingBox(true);
 
 	m_AStarNode = new AStar_Node(new Ogre::Vector2(position.x, position.z));
 }

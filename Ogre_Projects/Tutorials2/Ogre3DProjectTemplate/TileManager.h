@@ -17,6 +17,8 @@ public:
 
 	void SetGoal(Tile *& goalTile);
 
+	void CycleTile(Tile *& tile);
+
 private:
 	std::vector<Tile*>* tiles;
 

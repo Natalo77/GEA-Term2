@@ -48,7 +48,7 @@ bool TileManager::Find(Tile *& result, Ogre::Entity & entity)
 
 void TileManager::SetGoal(Tile *& goalTile)
 {
-	if (currentGoalTile)
+	if (currentGoalTile && currentGoalTile->GetState() == Tile::TILE_GOAL && goalTile != currentGoalTile)
 		currentGoalTile->CycleState();
 
 	if (currentGoalTile != goalTile)
@@ -58,4 +58,11 @@ void TileManager::SetGoal(Tile *& goalTile)
 	}
 		
 	
+}
+
+void TileManager::CycleTile(Tile *& tile)
+{
+	tile->CycleState();
+	if (tile == currentGoalTile)
+		currentGoalTile = NULL;
 }

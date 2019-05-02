@@ -21,6 +21,7 @@
 #include <OgreColourValue.h>
 #include <OGRE/OgreConfigFile.h>
 #include <OgreStaticGeometry.h>
+#include <Bites/OgreTrays.h>
 
 
 
@@ -99,7 +100,7 @@ bool Ogre3DApplication::mousePressed(const OgreBites::MouseButtonEvent & evt)
 			switch (evt.button)
 			{
 			case OgreBites::BUTTON_LEFT:
-				tileCollided->CycleState();
+				tileMgr->CycleTile(tileCollided);
 				break;
 			case OgreBites::BUTTON_RIGHT:
 				if(tileCollided->GetState() == Tile::TILE_GRASS)
@@ -114,7 +115,34 @@ bool Ogre3DApplication::mousePressed(const OgreBites::MouseButtonEvent & evt)
 		
 	}
 
+	if(mTrayManager->mousePressed(evt))
+		return true;
+
 	return true;
+}
+
+
+bool Ogre3DApplication::mouseReleased(const OgreBites::MouseButtonEvent & evt)
+{
+	if (mTrayManager->mouseReleased(evt))
+		return true;
+
+	return true;
+}
+
+
+bool Ogre3DApplication::mouseMoved(const OgreBites::MouseMotionEvent & evt)
+{
+	if (mTrayManager->mouseMoved(evt))
+		return true;
+
+	return true;
+}
+
+
+void Ogre3DApplication::frameRendered(const Ogre::FrameEvent & evt)
+{
+	mTrayManager->frameRendered(evt);
 }
 
 
@@ -153,6 +181,10 @@ void Ogre3DApplication::setup()
 	///Get a pointer to the root node -> then create a scene Manager within that node.
 	Root* root = getRoot();
 	scnMgr = root->createSceneManager();
+
+
+	// Add the overlay system to the rendering queue listener.
+	scnMgr->addRenderQueueListener(mOverlaySystem);
 
 	//Register our 'scene' with the 'Run-Time Shader System' (RTSS)
 	/// - Get the singleton RTSS shaderGenerator -> then add our created sceneManager to it.
@@ -271,7 +303,45 @@ void Ogre3DApplication::setup()
 
 #pragma endregion
 
+
+	// Setup the UI system.
+#pragma region 7. UI setup.
+
+	setupUITray("AStar Demonstration", this->getRenderWindow());
+
+#pragma endregion
+
 }
+
+
+bool Ogre3DApplication::frameRenderingQueued(const Ogre::FrameEvent & evt)
+{
+	mTrayManager->frameRendered(evt);
+
+	try
+	{
+		return ApplicationContext::frameRenderingQueued(evt);
+	}
+	catch (Ogre::Exception& e)   // show error and fall back to menu
+	{
+		mTrayManager->showOkDialog("Error!", e.getDescription() + "\nSource: " + e.getSource());
+	}
+
+	return true;
+}
+
+
+void Ogre3DApplication::buttonHit(OgreBites::Button * button)
+{
+	//Handle button hit event.
+	Ogre::String bttnName = button->getName();
+
+	if (bttnName == "QuitBTN")
+	{
+		getRoot()->queueEndRendering();
+	}
+}
+
 
 void Ogre3DApplication::SetupResources()
 {
@@ -303,4 +373,29 @@ void Ogre3DApplication::SetupResources()
 	Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 }
 
+void Ogre3DApplication::setupUITray(const Ogre::String & name, Ogre::RenderWindow * window)
+{
+	//By default the Tray uses the overlay configuration in the file SdkTrays.overlay.
+	//You can locate this file in media/packs/SdkTrays.zip
+	//Unless you REALLY want to reskin the UI, I would recommend using the default overlay configuration as it has
+	//already defined some common UI elements.
+	mTrayManager = new OgreBites::TrayManager("UITray", window, this);
+
+	//Add a button
+	OgreBites::Button* quitBttn = mTrayManager->createButton(OgreBites::TL_BOTTOMLEFT, "QuitBTN", "Quit");
+
+	//Add a label
+	OgreBites::Label* titleLB = mTrayManager->createLabel(OgreBites::TL_TOP, "TitleLB", "The AI revolution", 200);
+
+	OgreBites::TextBox* explanationTB = mTrayManager->createTextBox(OgreBites::TL_TOPLEFT, "ExplanationLB", "Explanation:\n\nLMB: Change tile between mountain and grass\n    Mountain: Impassable\n    Grass: Passable\n\nRMB: Change position of Sinbad.\n\nMMB: Set Goal Tile.\n\n\nHit Go for sinbad to find his way\nto the goal tile!", 375, 225);
+
+	//show the frame stat box
+	//N.B. the frame stat box is created by TrayManager by default.
+	mTrayManager->showFrameStats(OgreBites::TL_TOPRIGHT);
+
+	mTrayManager->setTrayPadding(10.0f);
+
+	mTrayManager->showAll();
+
+}
 

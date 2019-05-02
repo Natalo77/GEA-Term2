@@ -46,7 +46,7 @@ namespace Ogre {
 			Ogre::Real getAspectRatio(Ogre::Viewport* vp)
 				Returns the aspect ration of the current screen.
 C---C---C---C---C---C---C---C---C---C---C---C---C---C---C---C---C-C*/
-class Ogre3DApplication : public OgreBites::ApplicationContext, public OgreBites::InputListener
+class Ogre3DApplication : public OgreBites::ApplicationContext, public OgreBites::InputListener, public OgreBites::TrayListener
 {
 public:
 	//Constructors and deconstructors.
@@ -55,11 +55,18 @@ public:
 
 	//Overriden methods from OgreBits::ApplicationContext:
 	virtual void setup() override;
+	virtual bool frameRenderingQueued(const Ogre::FrameEvent& evt) override;
 
 	//Overriden methods from OgreBits::InputListener:
 	virtual bool keyPressed(const OgreBites::KeyboardEvent &evt) override;
 	virtual bool mouseWheelRolled(const OgreBites::MouseWheelEvent & evt) override;
 	virtual bool mousePressed(const OgreBites::MouseButtonEvent & evt) override;
+	virtual bool mouseReleased(const OgreBites::MouseButtonEvent& evt) override;
+	virtual bool mouseMoved(const OgreBites::MouseMotionEvent& evt) override;
+	virtual void frameRendered(const Ogre::FrameEvent& evt) override;
+
+	// Overriden methods from OgreBites::TrayListener.
+	virtual void buttonHit(OgreBites::Button* button) override;
 
 
 private:
@@ -67,6 +74,8 @@ private:
 	
 
 	void SetupResources();
+
+	void Ogre3DApplication::setupUITray(const Ogre::String & name, Ogre::RenderWindow * window);
 
 private:
 	CameraController* camControl;
@@ -78,5 +87,7 @@ private:
 	TileManager* tileMgr;
 
 	Agent* mAgent;
+
+	OgreBites::TrayManager* mTrayManager;
 
 };

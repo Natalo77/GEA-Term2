@@ -55,6 +55,7 @@ void Agent::SetNode(AStar_Node * node)
 	Ogre::Vector3* tempVec = new Ogre::Vector3(node->getPosition()->x, 0, node->getPosition()->y);
 
 	mSceneNode->translate(*tempVec - mSceneNode->_getDerivedPosition());
+	mSceneNode->translate(Ogre::Vector3(0, 60, 0));
 	mEntity->setVisible(true);
 }
 
@@ -69,11 +70,10 @@ void Agent::Setup(Ogre::SceneManager *& scnMgr)
 {
 	g_scnMgr = scnMgr;
 	mSceneNode = g_scnMgr->getRootSceneNode()->createChildSceneNode();
-	mEntity = g_scnMgr->createEntity("ninja.mesh");
-	mEntity->setMaterialName("Hurt");
+	mEntity = g_scnMgr->createEntity("Sinbad.mesh");
 	mSceneNode->attachObject(mEntity);
 
 	mSceneNode->translate(Ogre::Vector3(-100, 0, -100));
-	mSceneNode->rotate(Ogre::Quaternion(Ogre::Radian(Ogre::Degree(180)), Ogre::Vector3::UNIT_Y));
+	mSceneNode->setScale(Ogre::Vector3(10, 10, 10));
 	mEntity->setVisible(false);
 }
