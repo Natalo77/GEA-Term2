@@ -2,13 +2,16 @@
 
 material Grass {
     receive_shadows on
-    technique {
+    
+	technique {
         pass {
             lighting on
-            ambient 0.800000011920929 0.800000011920929 0.800000011920929 1.0
+            //ambient 0.800000011920929 0.800000011920929 0.800000011920929 1.0
+			//ambient 0.0 0.0 0.0 0.0
             diffuse 0.6400000190734865 0.6400000190734865 0.6400000190734865 1.0
             specular 0.0 0.0 0.0 1.0 12.5
-            emissive 0.040000001192092904 0.040000001192092904 0.040000001192092904 1.0
+            // emissive 0.040000001192092904 0.040000001192092904 0.040000001192092904 1.0
+
             
             alpha_to_coverage off 
             colour_write on 
@@ -19,10 +22,10 @@ material Grass {
             illumination_stage  
             light_clip_planes off 
             light_scissor off 
-            normalise_normals off 
+            normalise_normals off
             polygon_mode solid 
-            scene_blend one zero 
-            scene_blend_op add 
+            scene_blend one zero
+            // scene_blend_op add 
             shading gouraud 
             transparent_sorting on 
 
@@ -30,7 +33,7 @@ material Grass {
                 texture Grass0.png 
                 tex_address_mode wrap 
                 scale 1.0 1.0 
-                colour_op alpha_blend 
+                colour_op add
             }
         }
     }

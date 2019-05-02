@@ -20,6 +20,8 @@ struct EntityComparable
 class Tile
 {
 public:
+	enum State { TILE_GRASS, TILE_MOUNTAIN, TILE_NA };
+
 	Tile();
 	~Tile();
 	Tile(
@@ -31,9 +33,61 @@ public:
 
 	Ogre::Entity* GetEntity();
 
+	State CycleState();
+
 private:
+	State currentState;
+
+	Ogre::SceneManager* scnMgr;
+
 	Ogre::Entity* entity;
 
 	Ogre::SceneNode* node;
+
+	inline Ogre::String getMeshName(State state);
+	inline Ogre::String getMaterialName(State state);
+
+	void ChangeMesh(Ogre::String, Ogre::String);
 };
+
+inline Tile::State operator ++(Tile::State& state, int)
+{
+	switch (state)
+	{
+	case Tile::TILE_GRASS:
+		state = Tile::TILE_MOUNTAIN;
+		return state;
+	case Tile::TILE_MOUNTAIN:
+		state = Tile::TILE_GRASS;
+		return state;
+	case Tile::TILE_NA:
+		return state;
+	}
+}
+
+inline Ogre::String Tile::getMeshName(Tile::State state)
+{
+	switch (state)
+	{
+	case Tile::TILE_GRASS:
+		return "GrassTile.mesh";
+	case Tile::TILE_MOUNTAIN:
+		return "MountainTile.mesh";
+	case Tile::TILE_NA:
+		return "GrassTile.mesh";
+	}
+}
+
+inline Ogre::String Tile::getMaterialName(Tile::State state)
+{
+	switch (state)
+	{
+	case Tile::TILE_GRASS:
+		return "Grass";
+	case Tile::TILE_MOUNTAIN:
+		return "Mountain";
+	case Tile::TILE_NA:
+		return "BlackAndWhite";
+	}
+}
 

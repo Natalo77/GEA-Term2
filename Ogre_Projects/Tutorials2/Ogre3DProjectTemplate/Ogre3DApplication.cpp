@@ -95,7 +95,7 @@ bool Ogre3DApplication::mousePressed(const OgreBites::MouseButtonEvent & evt)
 		tileMgr->Find(tileCollided, *collided);
 
 		if (tileCollided != NULL)
-			tileCollided->GetEntity()->setVisible(false);
+			tileCollided->CycleState();
 
 		
 	}
@@ -184,7 +184,7 @@ void Ogre3DApplication::setup()
 		Ogre::Real zOffset = 50;
 
 		Vector3 position(xOffsetMultiplier * xOffset, 0, zOffsetMultiplier * zOffset);
-		Quaternion quat(Radian(Degree(90)), Vector3::UNIT_X);
+		Quaternion quat(Radian(Degree(-90)), Vector3::UNIT_X);
 
 		Tile* tile = new Tile(*scnMgr, nameOfTile, "Grass", position, quat);
 
@@ -208,6 +208,8 @@ void Ogre3DApplication::setup()
 
 	//Set the shadow method to be used.
 	scnMgr->setShadowTechnique(ShadowTechnique::SHADOWTYPE_STENCIL_MODULATIVE);
+	
+	
 
 #pragma endregion
 
@@ -216,13 +218,14 @@ void Ogre3DApplication::setup()
 
 	//Add a directional light.
 #pragma region 5.1 Add a directional light.
+
 	Light* dirLight = scnMgr->createLight("directionalLight");
 	{
 		//Setup type and values.
 		dirLight->setType(Light::LightTypes::LT_DIRECTIONAL);
 
-		dirLight->setDiffuseColour(ColourValue(1, 1, 1));	
-		dirLight->setSpecularColour(ColourValue(1, 1, 1));	
+		dirLight->setDiffuseColour(1, 1, 1);
+		dirLight->setSpecularColour(1, 1, 1);
 	}
 
 	//Create the node for the directional light.
@@ -230,13 +233,14 @@ void Ogre3DApplication::setup()
 	{
 		//Setup attachment and values.
 		///Directional lights do not need positions.
-		dirLightNode->attachObject(dirLight);
-		dirLightNode->setDirection(Vector3(0, -1, 1));
+		//dirLightNode->attachObject(dirLight);
+		dirLightNode->setDirection(Vector3(0, -1, -1));
 	}
 #pragma endregion
 
 
 #pragma endregion
+
 
 	// set up the input controller.
 #pragma region 6. Input Controller setup

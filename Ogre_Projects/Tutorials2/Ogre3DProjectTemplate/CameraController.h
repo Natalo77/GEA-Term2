@@ -25,7 +25,7 @@ const Ogre::Real INITIAL_CAM_X = 1140;
 const Ogre::Real INITIAL_CAM_Y = 3000;
 const Ogre::Real INITIAL_CAM_Z = 950;
 
-const int SCROLL_SPEED_MULTIPLIER = 1000;
+const int SCROLL_SPEED_MULTIPLIER = 100;
 
 
 class CameraController
