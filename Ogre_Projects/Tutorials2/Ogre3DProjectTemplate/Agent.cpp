@@ -48,6 +48,17 @@ Agent::Agent(AStar_Node *& currentNode, Ogre::SceneManager *& scnMgr)
 }
 
 
+void Agent::SetNode(AStar_Node * node)
+{
+	mCurrentNode = node;
+
+	Ogre::Vector3* tempVec = new Ogre::Vector3(node->getPosition()->x, 0, node->getPosition()->y);
+
+	mSceneNode->translate(*tempVec - mSceneNode->_getDerivedPosition());
+	mEntity->setVisible(true);
+}
+
+
 void Agent::Setup(Ogre::SceneManager *& scnMgr)
 {
 	g_scnMgr = scnMgr;

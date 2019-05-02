@@ -1,5 +1,6 @@
 #pragma once
 
+class AStar_Node;
 namespace Ogre {
 	class SceneManager;
 	class SceneNode;
@@ -32,8 +33,15 @@ public:
 		const Ogre::Quaternion &rotation);
 
 	Ogre::Entity* GetEntity();
+	AStar_Node* GetNode();
 
 	State CycleState();
+
+private:
+	inline Ogre::String getMeshName(State state);
+	inline Ogre::String getMaterialName(State state);
+
+	void ChangeMesh(Ogre::String, Ogre::String);
 
 private:
 	State currentState;
@@ -44,10 +52,7 @@ private:
 
 	Ogre::SceneNode* node;
 
-	inline Ogre::String getMeshName(State state);
-	inline Ogre::String getMaterialName(State state);
-
-	void ChangeMesh(Ogre::String, Ogre::String);
+	AStar_Node* m_AStarNode;
 };
 
 inline Tile::State operator ++(Tile::State& state, int)
@@ -65,6 +70,7 @@ inline Tile::State operator ++(Tile::State& state, int)
 	}
 }
 
+
 inline Ogre::String Tile::getMeshName(Tile::State state)
 {
 	switch (state)
@@ -77,6 +83,7 @@ inline Ogre::String Tile::getMeshName(Tile::State state)
 		return "GrassTile.mesh";
 	}
 }
+
 
 inline Ogre::String Tile::getMaterialName(Tile::State state)
 {

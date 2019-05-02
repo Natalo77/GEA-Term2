@@ -29,12 +29,10 @@ void InputController::MouseClick(
 	Ogre::Vector3 *& result,
 	Ogre::Entity *& collided)
 {
-	if (evt.button == OgreBites::BUTTON_LEFT)
-	{
 
 		Ogre::Ray ray;
 		camControl.GetCameraToViewportRay(evt.x, evt.y, &ray);
 
 		rayCaster->RayCast(ray, *result, collided, scnMgr);
-	}
+	
 }

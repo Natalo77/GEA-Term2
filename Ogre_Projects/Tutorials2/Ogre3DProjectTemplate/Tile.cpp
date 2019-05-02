@@ -1,8 +1,10 @@
 #include "Tile.h"
+#include "AStar_Node.h"
 
 #include <OgreSceneManager.h>
 #include <OgreEntity.h>
 #include <OgreSceneNode.h>
+
 
 
 
@@ -12,14 +14,23 @@ Tile::Tile()
 	entity = NULL;
 	node = NULL;
 	currentState = TILE_NA;
+	scnMgr = nullptr;
+	m_AStarNode = NULL;
 }
 
 
 Tile::~Tile()
 {
-	delete entity;
-	delete node;
+	if(entity)
+		delete entity;
+	if(node)
+		delete node;
+	if (scnMgr)
+		delete scnMgr;
+	if (m_AStarNode)
+		delete m_AStarNode;
 }
+
 
 Tile::Tile(
 	Ogre::SceneManager & scnMgr, 
@@ -36,12 +47,22 @@ Tile::Tile(
 	this->node = scnMgr.getRootSceneNode()->createChildSceneNode(position, rotation);
 	this->node->attachObject(this->entity);
 	this->node->showBoundingBox(true);
+
+	m_AStarNode = new AStar_Node(new Ogre::Vector2(position.x, position.z));
 }
+
 
 Ogre::Entity * Tile::GetEntity()
 {
 	return this->entity;
 }
+
+
+AStar_Node * Tile::GetNode()
+{
+	return m_AStarNode;
+}
+
 
 Tile::State Tile::CycleState()
 {
@@ -54,6 +75,7 @@ Tile::State Tile::CycleState()
 
 	return currentState;
 }
+
 
 void Tile::ChangeMesh(Ogre::String meshName, Ogre::String materialName)
 {

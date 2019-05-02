@@ -18,6 +18,8 @@ public:
 	Agent(Ogre::SceneManager *& scnMgr);
 	Agent(AStar_Node *& currentNode, Ogre::SceneManager *& scnMgr);
 
+	void SetNode(AStar_Node * node);
+
 private:
 	void Setup(Ogre::SceneManager *& scnMgr);
 
