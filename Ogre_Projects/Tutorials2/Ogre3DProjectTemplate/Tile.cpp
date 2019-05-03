@@ -75,6 +75,16 @@ Tile::State Tile::CycleState()
 }
 
 
+void Tile::Reset()
+{
+	m_AStarNode->ResetNode();
+
+	currentState = Tile::TILE_GRASS;
+
+	UpdateModel();
+}
+
+
 void Tile::SetGoal()
 {
 	currentState = Tile::TILE_GOAL;
@@ -89,6 +99,14 @@ Tile::State Tile::GetState()
 }
 
 
+void Tile::SetTraversed()
+{
+	currentState = Tile::TILE_TRAVERSED;
+
+	UpdateModel();
+}
+
+
 Ogre::Vector3 Tile::GetPosition()
 {
 	return node->_getDerivedPosition();
@@ -98,6 +116,7 @@ Ogre::Vector3 Tile::GetPosition()
 void Tile::ChangeMesh(Ogre::String &meshName, std::vector<Ogre::String> &materialNames)
 {
 	this->node->detachAllObjects();
+	this->entity->_deinitialise();
 	this->entity = this->scnMgr->createEntity(meshName);
 
 	int i = 0;

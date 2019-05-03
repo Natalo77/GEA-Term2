@@ -120,6 +120,8 @@ public:
 	void setParent(AStar_Node* newParent);
 
 	Vector2* getPosition();
+
+	void ResetNode();
 };
 
 #endif

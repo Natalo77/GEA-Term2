@@ -20,14 +20,19 @@ public:
 
 	bool Find(Tile *& result, Ogre::Entity &entity);
 	bool Find(Tile *& result, Ogre::Vector3 &position);
+	bool Find(Tile *& result, AStar_Node * node);
 
 	void SetGoal(Tile *& goalTile);
 	AStar_Node* GetGoalNode();
+	bool TilesReadyForTraversal();
 
 	void CycleTile(Tile *& tile);
+	void ResetTiles();
 
 	void SetupEdges();
 	void TearDownEdges();
+
+	void TraverseNode(AStar_Node* node);
 
 public:
 	static Ogre::Real xOffset;

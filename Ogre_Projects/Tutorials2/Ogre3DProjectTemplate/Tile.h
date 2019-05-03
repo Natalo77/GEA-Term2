@@ -23,7 +23,7 @@ struct EntityComparable
 class Tile
 {
 public:
-	enum State { TILE_GRASS, TILE_MOUNTAIN, TILE_GOAL, TILE_NA };
+	enum State { TILE_GRASS, TILE_MOUNTAIN, TILE_GOAL, TILE_TRAVERSED, TILE_NA };
 
 	Tile();
 	~Tile();
@@ -38,8 +38,12 @@ public:
 	AStar_Node* GetNode();
 
 	State CycleState();
+	void Reset();
+
 	void SetGoal();
 	State GetState();
+
+	void SetTraversed();
 
 	Ogre::Vector3 GetPosition();
 
@@ -88,6 +92,8 @@ inline Tile::State operator ++(Tile::State& state, int)
 	case Tile::TILE_GOAL:
 		state = Tile::TILE_GRASS;
 		return state;
+	case Tile::TILE_TRAVERSED:
+		return state;
 	}
 }
 
@@ -104,6 +110,8 @@ inline Ogre::String Tile::getMeshName(Tile::State state)
 		return "GrassTile.mesh";
 	case Tile::TILE_GOAL:
 		return "GoalTile.mesh";
+	case Tile::TILE_TRAVERSED:
+		return "GrassTile.mesh";
 	}
 }
 
@@ -126,6 +134,9 @@ inline std::vector<Ogre::String> Tile::getMaterialName(Tile::State state)
 	case Tile::TILE_GOAL:
 		temp.push_back("StoneGoal");
 		temp.push_back("SoilGoal");
+		break;
+	case Tile::TILE_TRAVERSED:
+		temp.push_back("VisitedTile");
 		break;
 	}
 

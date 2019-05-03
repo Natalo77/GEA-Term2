@@ -9,10 +9,12 @@ class TileManager;
 #include "AList.h"
 namespace Ogre
 {
-	class Entity;
 	class SceneManager;
-	class SceneNode;
 }
+
+#include <OgreSceneNode.h>
+#include <OgreMath.h>
+#include <OgreEntity.h>
 
 
 class Agent
@@ -28,10 +30,14 @@ public:
 
 	void PathFind(TileManager * tileMgr);
 
+	void Reset();
+
 private:
 	void Setup(Ogre::SceneManager *& scnMgr);
 
-	void Traverse(AList<AStar_Node*> *& path);
+	void Traverse(AList<AStar_Node*> *& path, TileManager * tileMgr);
+
+	inline void HideModel();
 
 private:
 	AStar_Node* mCurrentNode;
@@ -41,7 +47,20 @@ private:
 	Ogre::SceneManager* g_scnMgr;
 
 	Ogre::SceneNode* mSceneNode;
+
+	bool hidden;
 };
+
+
+inline void Agent::HideModel()
+{
+	Ogre::Vector3 vec(-100, 0, -100);
+	mSceneNode->_setDerivedPosition(vec);
+
+	mEntity->setVisible(false);
+
+	hidden = true;
+}
 
 #endif
 

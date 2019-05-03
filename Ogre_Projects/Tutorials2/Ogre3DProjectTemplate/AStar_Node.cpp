@@ -257,3 +257,13 @@ Vector2 * AStar_Node::getPosition()
 }
 
 
+void AStar_Node::ResetNode()
+{
+	m_parent = NULL;
+	m_g = INFINITY;
+	m_h = INFINITY;
+	m_visited = false;
+	m_neighbours->clear();
+}
+
+

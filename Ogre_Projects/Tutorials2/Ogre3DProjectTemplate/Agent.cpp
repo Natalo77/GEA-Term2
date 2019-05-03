@@ -5,10 +5,7 @@
 #include "TileManager.h"
 
 
-#include <OgreEntity.h>
 #include <OgreSceneManager.h>
-#include <OgreSceneNode.h>
-#include <OgreMath.h>
 
 
 
@@ -18,6 +15,7 @@ Agent::Agent()
 	mEntity = NULL;
 	g_scnMgr = nullptr;
 	mSceneNode = NULL;
+	hidden = true;
 }
 
 
@@ -59,6 +57,8 @@ void Agent::SetNode(AStar_Node * node)
 	mSceneNode->translate(*tempVec - mSceneNode->_getDerivedPosition());
 	mSceneNode->translate(Ogre::Vector3(0, 60, 0));
 	mEntity->setVisible(true);
+
+	hidden = false;
 }
 
 
@@ -70,11 +70,20 @@ AStar_Node * Agent::GetNode()
 
 void Agent::PathFind(TileManager * tileMgr)
 {
-	tileMgr->SetupEdges();
-	AList<AStar_Node*>* path = AStar::AStarSearch(mCurrentNode, tileMgr->GetGoalNode());
-	Traverse(path);
-	tileMgr->TearDownEdges();
-	path->clear();
+	if (tileMgr->TilesReadyForTraversal() && !hidden)
+	{
+		tileMgr->SetupEdges();
+		AList<AStar_Node*>* path = AStar::AStarSearch(mCurrentNode, tileMgr->GetGoalNode());
+		Traverse(path, tileMgr);
+		tileMgr->TearDownEdges();
+		path->clear();
+	}
+}
+
+
+void Agent::Reset()
+{
+	HideModel();
 }
 
 
@@ -85,12 +94,12 @@ void Agent::Setup(Ogre::SceneManager *& scnMgr)
 	mEntity = g_scnMgr->createEntity("Sinbad.mesh");
 	mSceneNode->attachObject(mEntity);
 
-	mSceneNode->translate(Ogre::Vector3(-100, 0, -100));
+	HideModel();
+
 	mSceneNode->setScale(Ogre::Vector3(10, 10, 10));
-	mEntity->setVisible(false);
 }
 
-void Agent::Traverse(AList<AStar_Node*>*& path)
+void Agent::Traverse(AList<AStar_Node*>*& path, TileManager * tileMgr)
 {
 	for (std::reverse_iterator<AList<AStar_Node*>::iterator> iter = path->rbegin();
 		iter != path->rend();
@@ -98,5 +107,6 @@ void Agent::Traverse(AList<AStar_Node*>*& path)
 	{
 		AStar_Node* node = *iter;
 		SetNode(node);
+		tileMgr->TraverseNode(node);
 	}
 }

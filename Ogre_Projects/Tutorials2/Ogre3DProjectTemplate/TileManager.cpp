@@ -69,6 +69,23 @@ bool TileManager::Find(Tile *& result, Ogre::Vector3 &position)
 }
 
 
+bool TileManager::Find(Tile *& result, AStar_Node * node)
+{
+	for (std::vector<Tile*>::iterator iter = tiles->begin();
+		iter != tiles->end();
+		iter++)
+	{
+		Tile* tile = *iter;
+		if (node == tile->GetNode())
+		{
+			result = tile;
+			return true;
+		}
+	}
+	return false;
+}
+
+
 void TileManager::SetGoal(Tile *& goalTile)
 {
 	if (currentGoalTile && currentGoalTile->GetState() == Tile::TILE_GOAL && goalTile != currentGoalTile)
@@ -88,11 +105,30 @@ AStar_Node * TileManager::GetGoalNode()
 	return currentGoalTile->GetNode();
 }
 
+bool TileManager::TilesReadyForTraversal()
+{
+	return currentGoalTile != NULL;
+}
+
 void TileManager::CycleTile(Tile *& tile)
 {
 	tile->CycleState();
 	if (tile == currentGoalTile)
 		currentGoalTile = NULL;
+}
+
+
+void TileManager::ResetTiles()
+{
+	for (std::vector<Tile*>::iterator iter = tiles->begin();
+		iter != tiles->end();
+		iter++)
+	{
+		Tile* tile = *iter;
+		tile->Reset();
+	}
+
+	currentGoalTile = NULL;
 }
 
 
@@ -130,6 +166,17 @@ void TileManager::TearDownEdges()
 	{
 		tile = *iter;
 		TearDownEdges(tile);
+	}
+}
+
+
+void TileManager::TraverseNode(AStar_Node * node)
+{
+	Tile* tile = NULL;
+	if (Find(tile, node))
+	{
+		if (tile->GetState() != Tile::TILE_GOAL)
+			tile->SetTraversed();
 	}
 }
 
