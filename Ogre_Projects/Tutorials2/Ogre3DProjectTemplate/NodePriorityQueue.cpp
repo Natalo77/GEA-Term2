@@ -52,7 +52,10 @@ void NodePriorityQueue::EnQueue(AStar_Node * element)
 {
 	// Can just push back if its empty.
 	if (this->empty())
+	{
 		this->push_back(element);
+		return;
+	}
 	else
 	{
 		for (std::list<AStar_Node*>::iterator iter = this->begin();	//Iterator at start of AStar_Edge list.
@@ -62,16 +65,20 @@ void NodePriorityQueue::EnQueue(AStar_Node * element)
 			// Dereference the iterator,
 			AStar_Node* node = *iter;
 
-			// If the nodes priority is lesser than the examined node's, check the next.
-			if (element->getF() > node->getF())
-				continue;
-			else
+			// If the nodes priority is lesser than the examined node's
+			if (element->getF() <= node->getF())
 			{
 				// Insert it ahead of that element and return.
 				this->insert(iter, element);
 				return;
 			}
-			
+			else
+				continue;
 		}
+
+		//If it was the highest cost element.
+		this->push_back(element);
 	}
+
+	
 }

@@ -31,13 +31,9 @@ AStar_Edge::AStar_Edge()
   Method:   ~AStar_Edge
 
   Summary:  Default DeConstructor for the AStar_Edge class.
-
-  Modifies: [mNode].
 M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M-M*/
 AStar_Edge::~AStar_Edge()
 {
-	if (mNode)
-		delete mNode;
 }
 
 

@@ -73,7 +73,7 @@ Args:		SceneManager *& scnMgrRef
 
 Modifies:	[ALL MEMBER VARIABLES]
 M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---*/
-CameraController::CameraController(Ogre::SceneManager *& scnMgrRef, Ogre3DApplication *& parent)
+CameraController::CameraController(Ogre::SceneManager * scnMgrRef, Ogre3DApplication * parent)
 {
 	// Store the reference to the scene manager.
 	g_ScnMgr = scnMgrRef;

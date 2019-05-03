@@ -84,7 +84,7 @@ class CameraController
 public:
 	CameraController();
 	~CameraController();
-	CameraController(Ogre::SceneManager *& scnMgrRef, Ogre3DApplication *& parent);
+	CameraController(Ogre::SceneManager * scnMgrRef, Ogre3DApplication * parent);
 
 	void Zoom(int value);
 

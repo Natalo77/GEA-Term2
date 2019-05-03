@@ -1,13 +1,4 @@
-﻿  Agent.cpp
-  Tile.cpp
-  TileManager.cpp
-e:\_programming\gea-term2\ogre_projects\tutorials2\ogre3dprojecttemplate\tilemanager.cpp(187): warning C4244: 'initializing': conversion from 'Ogre::Real' to 'int', possible loss of data
-e:\_programming\gea-term2\ogre_projects\tutorials2\ogre3dprojecttemplate\tilemanager.cpp(188): warning C4244: 'initializing': conversion from 'Ogre::Real' to 'int', possible loss of data
-e:\_programming\gea-term2\ogre_projects\tutorials2\ogre3dprojecttemplate\tilemanager.cpp(192): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=Ogre::Real
-          ]
-e:\_programming\gea-term2\ogre_projects\tutorials2\ogre3dprojecttemplate\tile.h(98): warning C4715: 'operator++': not all control paths return a value
-e:\_programming\gea-term2\ogre_projects\tutorials2\ogre3dprojecttemplate\tile.h(116): warning C4715: 'Tile::getMeshName': not all control paths return a value
+﻿  AStar.cpp
+  NodePriorityQueue.cpp
+  PriorityQueue.cpp
   Ogre3DProjectTemplate.vcxproj -> E:\_PROGRAMMING\GEA-term2\Ogre_Projects\Tutorials2\x64\Debug\Ogre3DProjectTemplate.exe

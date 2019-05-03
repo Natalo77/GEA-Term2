@@ -263,7 +263,7 @@ void Ogre3DApplication::setup()
 	shaderGen->addSceneManager(g_ScnMgr);
 
 	// Setup the mCamera controller.
-	mCamControl = new CameraController(*g_ScnMgr, *this);
+	mCamControl = new CameraController(g_ScnMgr, this);
 
 #pragma endregion
 
@@ -359,7 +359,7 @@ void Ogre3DApplication::setup()
 #pragma region 7. UI setup.
 
 	// Setup the UI
-	setupUITray("AStar Demonstration", this->getRenderWindow());
+	setupUITray(this->getRenderWindow());
 
 #pragma endregion
 

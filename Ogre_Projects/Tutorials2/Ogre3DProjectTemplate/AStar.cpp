@@ -92,7 +92,7 @@ AList<AStar_Node*>* AStar::AStarSearch(AStar_Node * start, AStar_Node * dest)
 			AStar_Edge edge = *iter;
 
 			// Get the cost of the edge.
-			float distance = edge.GetCost();
+			float distance = currentNode->getF();
 
 			// Get a pointer to the edge's leading node.
 			AStar_Node* nextNode = edge.GetNode();
@@ -155,7 +155,7 @@ float AStar::ComputeHeuristic(AStar_Node * n1, AStar_Node * n2)
 {
 	// This implementation simply returns the square of the euclidean distance
 	// between the two nodes. Square is used as comparison is the only function here.
-	return n1->getPosition()->distance(*n2->getPosition());
+	return n2->getPosition()->distance(*n1->getPosition());
 }
 
 /*M+M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M
