@@ -50,6 +50,7 @@ NodePriorityQueue::~NodePriorityQueue()
 M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M-M*/
 void NodePriorityQueue::EnQueue(AStar_Node * element)
 {
+	// Can just push back if its empty.
 	if (this->empty())
 		this->push_back(element);
 	else
@@ -58,11 +59,15 @@ void NodePriorityQueue::EnQueue(AStar_Node * element)
 			iter != this->end();										//Until iterator reaches end of list.
 			iter++)
 		{
+			// Dereference the iterator,
 			AStar_Node* node = *iter;
+
+			// If the nodes priority is lesser than the examined node's, check the next.
 			if (element->getF() > node->getF())
 				continue;
 			else
 			{
+				// Insert it ahead of that element and return.
 				this->insert(iter, element);
 				return;
 			}

@@ -29,23 +29,24 @@ class AStar_Edge;
 //=====================================================
 using namespace Ogre;
 
+
 /*C+C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C
   Class:    AStar_Node
 
   Summary:  A class to represent a traversable node in real space.
 
-  Members:	AStar_Node* m_parent
+  Members:	AStar_Node* mParent
 				a pointer to the parent node of this node.
-			float m_g
+			float mG
 				a value to be used during AStarSearching storing the cumulative
 				cost to this node.
-			float m_h
+			float mH
 				the heuristic value for this node.
-			bool m_visited
+			bool mVisited
 				whether this node has been visited during a search or not.
-			std::vector<AStar_Edge*>* m_neighbours
+			std::vector<AStar_Edge*>* mNeighbours
 				A vector of edges directed towards the neighbour nodes of this node.
-			Vector2 * m_position
+			Vector2 * mPosition
 				a 2D vector for the position of this node.
 
   Methods:  ====================== PUBLIC ======================
@@ -72,6 +73,8 @@ using namespace Ogre;
 
 			vector<AStar_Edge*>* getNeighbours()
 				return this node's list of neighouring edges.
+			void AddNeighbour(AStar_Node *, float cost)
+				use to add a neighbour to this node.
 
 			bool isVisited()
 				use to test this node's visited state.
@@ -85,16 +88,19 @@ using namespace Ogre;
 
 			Vector2* getPosition()
 				use to return a pointer to this node's 2D vector for position.
+
+			void ResetNode
+				Use to reset this node and its neighbours.
 C---C---C---C---C---C---C---C---C---C---C---C---C---C---C---C---C-C*/
 class AStar_Node
 {
 private:
-	AStar_Node * m_parent;
-	float m_g = INFINITY;
-	float m_h = INFINITY;
-	bool m_visited = false;
-	std::vector<AStar_Edge>* m_neighbours;
-	Vector2 * m_position;
+	AStar_Node * mParent;
+	float mG = INFINITY;
+	float mH = INFINITY;
+	bool mVisited = false;
+	std::vector<AStar_Edge>* mNeighbours;
+	Vector2 * mPosition;
 
 public:
 	AStar_Node();

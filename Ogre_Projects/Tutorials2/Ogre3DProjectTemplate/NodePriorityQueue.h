@@ -15,6 +15,7 @@
 //=====================================================
 class AStar_Node;
 
+
 /*C+C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C
   Class:    NodePriorityQueue
 

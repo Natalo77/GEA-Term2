@@ -22,16 +22,16 @@
   Summary:  The default constructor of an AStar_Node.
 			Initializes this node at position 0,0
 
-  Modifies: [m_neighbours, m_position, m_parent].
+  Modifies: [mNeighbours, mPosition, mParent].
 
   Returns:  AStar_Node
 				the newly created AStar_Node object.
 M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M-M*/
 AStar_Node::AStar_Node()
 {
-	m_neighbours = new std::vector<AStar_Edge>();
-	m_position = new Vector2(0, 0);
-	m_parent = nullptr;
+	mNeighbours = new std::vector<AStar_Edge>();
+	mPosition = new Vector2(0, 0);
+	mParent = nullptr;
 }
 
 
@@ -40,13 +40,16 @@ AStar_Node::AStar_Node()
 
   Summary:  The defauly deconstructor of an AStar_Node object.
 
-  Modifies: [m_parent, m_neighbours, m_position].
+  Modifies: [mParent, mNeighbours, mPosition].
 M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M-M*/
 AStar_Node::~AStar_Node()
 {
-	delete m_parent;
-	delete m_neighbours;
-	delete m_position;
+	if(mParent)
+		delete mParent;
+	if(mNeighbours)
+		delete[] mNeighbours;
+	if(mPosition)
+		delete mPosition;
 }
 
 
@@ -59,16 +62,16 @@ AStar_Node::~AStar_Node()
 				a pointer to an OgreVector2 to use as the position
 				for this AStar_Node.
 
-  Modifies: [m_neighbours, m_position, m_parent].
+  Modifies: [mNeighbours, mPosition, mParent].
 
   Returns:  AStar_Node
 				the newly created node object.
 M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M-M*/
 AStar_Node::AStar_Node(Vector2 * position)
 {
-	m_neighbours = new std::vector<AStar_Edge>();
-	m_position = position;
-	m_parent = nullptr;
+	mNeighbours = new std::vector<AStar_Edge>();
+	mPosition = position;
+	mParent = NULL;
 }
 
 
@@ -87,8 +90,7 @@ AStar_Node::AStar_Node(Vector2 * position)
 M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M-M*/
 bool AStar_Node::isEqual(AStar_Node * rhs)
 {
-	return (m_position->distance(*rhs->getPosition()) < 0.01f);
-
+	return (mPosition->distance(*rhs->getPosition()) < 0.01f);
 }
 
 
@@ -104,7 +106,7 @@ bool AStar_Node::isEqual(AStar_Node * rhs)
 M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M-M*/
 float AStar_Node::getF()
 {
-	return m_g + m_h;
+	return mG + mH;
 }
 
 
@@ -120,7 +122,7 @@ float AStar_Node::getF()
 M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M-M*/
 float AStar_Node::getG()
 {
-	return this->m_g;
+	return this->mG;
 }
 
 
@@ -130,13 +132,13 @@ float AStar_Node::getG()
   Summary:  Set this node's cumulative cost.
 
   Args:     float g
-				the value to assign to m_g
+				the value to assign to mG
 
-  Modifies: [m_g].
+  Modifies: [mG].
 M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M-M*/
 void AStar_Node::setG(float g)
 {
-	this->m_g = g;
+	this->mG = g;
 }
 
 
@@ -146,13 +148,13 @@ void AStar_Node::setG(float g)
   Summary:  Set's this node's estimated cost (heuristic).
 
   Args:     float h
-				the value to assign to m_h
+				the value to assign to mH
 
-  Modifies: [m_h].
+  Modifies: [mH].
 M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M-M*/
 void AStar_Node::setH(float h)
 {
-	this->m_h = h;
+	this->mH = h;
 }
 
 /*M+M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M
@@ -168,13 +170,27 @@ void AStar_Node::setH(float h)
 M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M-M*/
 std::vector<AStar_Edge>* AStar_Node::getNeighbours()
 {
-	return m_neighbours;
+	return mNeighbours;
 }
 
+
+/*M+M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M
+  Method:   AddNeighbour
+
+  Summary:  Creates and adds a new edge to this Node's neighbour vector.
+
+  Args:		AStar_Node * node
+				the node to add an edge leading towards.
+			float cost
+				the cost of the new edge.
+
+  Modifies: [mNeighbours].
+M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M-M*/
 void AStar_Node::AddNeighbour(AStar_Node * node, float cost)
 {
+	// Create a new edge using the information given and push it onto the vector.
 	AStar_Edge* edge = new AStar_Edge(node, cost);
-	m_neighbours->push_back(*edge);
+	mNeighbours->push_back(*edge);
 }
 
 
@@ -190,7 +206,7 @@ void AStar_Node::AddNeighbour(AStar_Node * node, float cost)
 M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M-M*/
 bool AStar_Node::isVisited()
 {
-	return m_visited;
+	return mVisited;
 }
 
 
@@ -200,13 +216,13 @@ bool AStar_Node::isVisited()
   Summary:  Set this node's visited state.
 
   Args:     bool visited
-				the state to assign to m_visited.
+				the state to assign to mVisited.
 
-  Modifies: [m_visited].
+  Modifies: [mVisited].
 M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M-M*/
 void AStar_Node::setVisited(bool visited)
 {
-	this->m_visited = visited;
+	this->mVisited = visited;
 }
 
 
@@ -222,7 +238,7 @@ void AStar_Node::setVisited(bool visited)
 M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M-M*/
 AStar_Node * AStar_Node::getParent()
 {
-	return m_parent;
+	return mParent;
 }
 
 
@@ -232,13 +248,13 @@ AStar_Node * AStar_Node::getParent()
   Summary:  Used to set the value of this node's parent for path construction.
 
   Args:     AStar_Node* newParent
-				a pointer to the node to assign to m_parent.
+				a pointer to the node to assign to mParent.
 
-  Modifies: [m_parent].
+  Modifies: [mParent].
 M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M-M*/
 void AStar_Node::setParent(AStar_Node * newParent)
 {
-	m_parent = newParent;
+	mParent = newParent;
 }
 
 /*M+M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M
@@ -253,17 +269,24 @@ void AStar_Node::setParent(AStar_Node * newParent)
 M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M-M*/
 Vector2 * AStar_Node::getPosition()
 {
-	return m_position;
+	return mPosition;
 }
 
 
+/*M+M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M
+  Method:   ResetNode
+
+  Summary:  Resets this node and all its members.
+
+  Modifies: [mNeighbours, mPosition, mParent, mG, mH].
+M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M-M*/
 void AStar_Node::ResetNode()
 {
-	m_parent = NULL;
-	m_g = INFINITY;
-	m_h = INFINITY;
-	m_visited = false;
-	m_neighbours->clear();
+	mParent = NULL;
+	mG = INFINITY;
+	mH = INFINITY;
+	mVisited = false;
+	mNeighbours->clear();
 }
 
 

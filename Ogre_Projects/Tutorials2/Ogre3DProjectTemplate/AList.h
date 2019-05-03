@@ -97,10 +97,12 @@ M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M-M*/
 template<typename T>
 inline bool AList<T>::Contains(const T& object)
 {
+	// Cannot contain if the list is empty.
 	if (this->empty())
 		return false;
 	else
 	{
+		// If std find does not return end then it is contained.
 		if (std::find(this->begin(), this->end(), object) != this->end())
 			return true;
 	}
@@ -121,10 +123,14 @@ M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M-M*/
 template<class T>
 inline void AList<T>::Remove(const T& object)
 {
+	// Find the index to remove using std::find
 	auto indexToRemove = std::find(this->begin(), this->end(), object);
+
+	// If it returned end then it is not in the list.
 	if (indexToRemove == this->end())
 		return;
 
+	// Erase the element from the list.
 	this->erase(indexToRemove);
 }
 

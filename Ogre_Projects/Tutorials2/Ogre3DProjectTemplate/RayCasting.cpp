@@ -1,5 +1,11 @@
+//=====================================================
+//					Filename: RayCasting.cpp
+//=====================================================
 
 
+//=====================================================
+//				Library Includes.
+//=====================================================
 #include <OgreSceneManager.h>
 #include <OgreEntity.h>
 #include <OgreSceneNode.h>
@@ -9,19 +15,66 @@
 #include <OgreRay.h>
 
 
+//=====================================================
+//					Source Includes
+//=====================================================
 #include "RayCasting.h"
 
 
+/*M+M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M
+  Method:   RayCastimg
 
+  Summary:  The default constructor of a RayCasting object.
+
+  Modifies: [none]
+M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M-M*/
 RayCasting::RayCasting()
 {
 }
 
 
+/*M+M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M
+  Method:   ~RayCastimg
+
+  Summary:  The default deconstructor of a RayCasting object.
+
+  Modifies: [none]
+M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M-M*/
 RayCasting::~RayCasting()
 {
 }
 
+
+/*M+M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M
+  Method:   RayCast
+
+  Summary:  RayCasts using the ray and sceneManager, returns the results
+			in result and collided.
+
+  Args:		Ray & ray
+				a reference to a ray to use for the query.
+			Vector3 & result
+				a reference to store the resultant intersection Vector3 in
+			Entity *& collided
+				a reference pointer to store the collided with entity in.
+			SceneManager & scnMgrRef
+				a reference to the sceneManager with which to create the query.
+
+  Returns:	bool	
+				did the raycast intersect anything?
+
+  NOTE:		Taken from OgreWiki. Code is NOT my work.
+			Author:			<gerds>
+			Date:			<16.08.2006>
+			Code Version:	<1.0>
+			Availability:	<https://forums.ogre3d.org/viewtopic.php?f=2&t=23440>
+			Modifications:
+				Changed name.
+				Changed parameters.
+				Create Ray in function instead.
+				Store a collided entity as well.
+				Changed Variable name to suit internal standard.
+M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M-M*/
 bool RayCasting::RayCast(
 	Ogre::Ray &ray,
 	Ogre::Vector3 & result, 
@@ -133,6 +186,36 @@ bool RayCasting::RayCast(
 	
 }
 
+
+/*M+M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M
+  Method:   GetMeshInformation
+
+  Summary:  Use to return the mesh information of a specified entity to
+			the passed in parameters
+
+  Args:		Entity * entity
+				the entity to get the mesh information of.
+			Vector3 *& verties
+				a pointer refeence to store the vertices in.
+			size_t & indexCount
+				a reference to a size_t to store the number of indicies.
+			unsigned long *& indices
+				a pointer reference to an indices array.
+			Vector3 & position
+				a reference to a vector3 to use in calculating each vertex position.
+			Quaternion & orient
+				a rerefence to a quat to use in calculating each vertex position.
+			Vector3 & scale
+				a reference to a vector3 to use in calculating each vertex position.
+
+  NOTE:		Taken from OgreWiki. Code is NOT my work.
+			Author:			<jacmoe, Baxissimo, KingPrawnVindaloo>
+			Date:			<25.10.2011>
+			Code Version:	<1.0>
+			Availability:	<https://forums.ogre3d.org/viewtopic.php?f=2&t=46901>
+			Modifications:
+				None.
+M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M-M*/
 void RayCasting::GetMeshInformation(
 	Ogre::Entity * entity, 
 	Ogre::Vector3* &vertices, 

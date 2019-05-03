@@ -15,14 +15,15 @@
 //=====================================================
 class AStar_Node;
 
+
 /*C+C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C
   Class:    AStar_Edge
 
   Summary:  A class to represent an edge between two AStar_Nodes
 
-  Members:	AStar_Node* m_node
+  Members:	AStar_Node* mNode
 				a pointer to the node this edge leads towards.
-			float m_cost
+			float mCost
 				a value representing the cost/distance this edge takes
 				to traverse.
 
@@ -44,8 +45,8 @@ C---C---C---C---C---C---C---C---C---C---C---C---C---C---C---C---C-C*/
 class AStar_Edge
 {
 private:
-	AStar_Node * m_node;
-	float m_cost;
+	AStar_Node * mNode;
+	float mCost;
 
 public:
 	AStar_Edge();

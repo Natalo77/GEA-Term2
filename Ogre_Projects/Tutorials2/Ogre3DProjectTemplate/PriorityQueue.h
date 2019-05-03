@@ -3,8 +3,9 @@
 //=====================================================
 #pragma once
 
+
 //=====================================================
-//					Libraries
+//					Library Includes
 //=====================================================
 #include <list>
 
@@ -89,10 +90,12 @@ M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M-M*/
 template<class T>
 inline bool PriorityQueue<T>::Contains(const T& object)
 {
+	// If it's empty then not contained.
 	if (this->empty())
 		return false;
 	else
 	{
+		// if std find does not return end then it's contained.
 		if (std::find(this->begin(), this->end(), object) != this->end())
 			return true;
 	}
@@ -113,8 +116,13 @@ M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M-M*/
 template<class T>
 inline T PriorityQueue<T>::DeQueue()
 {
+	// Temp T storage.
 	T back = this->front();
+
+	//Pop the front.
 	this->pop_front();
+
+	// Return the temp storage.
 	return back;
 }
 

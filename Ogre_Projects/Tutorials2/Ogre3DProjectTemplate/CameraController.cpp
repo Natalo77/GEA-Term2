@@ -1,6 +1,18 @@
+//=====================================================
+//					Filename: CameraController.cpp
+//=====================================================
+
+
+//=====================================================
+//				Source Includes.
+//=====================================================
 #include "CameraController.h"
+#include "Ogre3DApplication.h"
 
 
+//=====================================================
+//				Library Includes.
+//=====================================================
 #include <OGRE/Bites/OgreApplicationContext.h>
 #include <OgreColourValue.h>
 #include <OgreSceneManager.h>
@@ -11,97 +23,158 @@
 #include <OGRE/Bites/OgreTrays.h>
 
 
-#include "Ogre3DApplication.h"
+/*M+M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++
+Method:		CameraController
 
+Summary:	The Default constructor for a CameraController.
 
+Modifies:	[ALL MEMBER VARIABLES]
+M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---*/
 CameraController::CameraController()
 {
-	scnMgr = nullptr;
-	camNode = NULL;
-	viewPort = nullptr;
-	scnMgr = nullptr;
-	camera = nullptr;
+	g_ScnMgr = nullptr;
+	mCamNode = NULL;
+	mViewPort = NULL;
+	mCamera = NULL;
 }
 
 
+/*M+M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++
+Method:		~CameraController
+
+Summary:	The Default deconstructor for a CameraController.
+
+Modifies:	[ALL MEMBER VARIABLES]
+M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---*/
 CameraController::~CameraController()
 {
-	delete camNode;
-	delete camera;
-	delete viewPort;
-	delete scnMgr;
-
-	
+	if(mCamNode)
+		delete mCamNode;
+	if(mCamera)
+		delete mCamera;
+	if(mViewPort)
+		delete mViewPort;
+	if(g_ScnMgr)
+		delete g_ScnMgr;
 }
 
 
-CameraController::CameraController(Ogre::SceneManager & scnMgrRef, Ogre3DApplication& parent)
+/*M+M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++
+Method:		CameraController
+
+Summary:	The Preferred constructor for a CameraController.
+
+Args:		SceneManager *& scnMgrRef
+				A pointer reference to the SceneManager to use to set
+				this cameraController up.
+			Ogre3DApplication *& parent
+				A pointer reference to the Ogre3DApplication that this
+				cameraController belongs to.
+
+Modifies:	[ALL MEMBER VARIABLES]
+M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---*/
+CameraController::CameraController(Ogre::SceneManager *& scnMgrRef, Ogre3DApplication *& parent)
 {
 	// Store the reference to the scene manager.
-	scnMgr = &scnMgrRef;
+	g_ScnMgr = scnMgrRef;
 
 	// Create a node for the cam and translate it to the initial xyz.
-	camNode = scnMgr->getRootSceneNode()->createChildSceneNode();
-	camNode->translate(INITIAL_CAM_X, INITIAL_CAM_Y, INITIAL_CAM_Z);
-	camNode->lookAt(Ogre::Vector3(0, -1, 0), Ogre::Node::TS_LOCAL);
+	mCamNode = g_ScnMgr->getRootSceneNode()->createChildSceneNode();
+	mCamNode->translate(INITIAL_CAM_X, INITIAL_CAM_Y, INITIAL_CAM_Z);
+	mCamNode->lookAt(Ogre::Vector3(0, -1, 0), Ogre::Node::TS_LOCAL);
 
-	// Create the camera and set its default clipping, aspect ratio and attach to the camNode.
-	camera = scnMgr->createCamera("MainCam");
-	camera->setNearClipDistance(5);
-	camera->setAutoAspectRatio(true);
-	camNode->attachObject(camera);
+	// Create the mCamera and set its default clipping, aspect ratio and attach to the mCamNode.
+	mCamera = g_ScnMgr->createCamera("MainCam");
+	mCamera->setNearClipDistance(5);
+	mCamera->setAutoAspectRatio(true);
+	mCamNode->attachObject(mCamera);
 
 	// Create a viewport using the parent Ogre3DApp.
-	viewPort = parent.getRenderWindow()->addViewport(camera);
-	viewPort->setBackgroundColour(Ogre::ColourValue(0, 0, 0));
-	camera->setAspectRatio(getAspectRatio());
+	mViewPort = parent->getRenderWindow()->addViewport(mCamera);
+	mViewPort->setBackgroundColour(Ogre::ColourValue(0, 0, 0));
+	mCamera->setAspectRatio(getAspectRatio());
 }
 
+
+/*M+M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++
+Method:		Zoom
+
+Summary:	Zooms the camera in and out based on value.
+
+Args:		int value
+				the y value to zoom the camera by.
+
+Modifies:	[mCamNode]
+M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---*/
 void CameraController::Zoom(int value)
 {
-	Ogre::Vector3 resultant = Ogre::Vector3(1140, 0, 950) - camNode->getPosition();
+	// Calculate the direction vector for scrolling.
+	Ogre::Vector3 resultant = Ogre::Vector3(1140, 0, 950) - mCamNode->getPosition();
 	resultant.normalise();
 
-	camNode->translate(resultant * value * SCROLL_SPEED_MULTIPLIER);
+	// Translate the camNode by the direction vector, the value, and the scroll speed multiplier.
+	mCamNode->translate(resultant * value * SCROLL_SPEED_MULTIPLIER);
 
-	if (camNode->getPosition().y < 100)
+	// Perfom bounds checking for the camera's y value.
+	if (mCamNode->getPosition().y < 100)
 	{
-		camNode->setPosition(camNode->getPosition().x, 100, camNode->getPosition().z);
+		mCamNode->setPosition(mCamNode->getPosition().x, 100, mCamNode->getPosition().z);
 	}
-	else if (camNode->getPosition().y > 4000)
+	else if (mCamNode->getPosition().y > 4000)
 	{
-		camNode->setPosition(camNode->getPosition().x, 4000, camNode->getPosition().z);
+		mCamNode->setPosition(mCamNode->getPosition().x, 4000, mCamNode->getPosition().z);
 	}
 }
 
+
+/*M+M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++
+Method:		GetDirection
+
+Summary:	Get the direction vector of the camera.
+
+Returns:	Vector3
+				a vector representing the Direction of the camera held
+				by this cameraController.
+M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---*/
 Ogre::Vector3 CameraController::GetDirection() const
 {
-	return camera->getDerivedDirection();
+	return mCamera->getDerivedDirection();
 }
 
+
+/*M+M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++
+Method:		GetCameraToViewportRay
+
+Summary:	Get a Ray into the screen at the mouse co-ords on the screen
+			in world space.
+
+Args:		Real x
+				the x co-ords of the mouse on the screen.
+			Real y
+				the y co-ords of the mouse on the screen.
+			Ray * out
+				A pointer to store the resultant ray at.
+M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---*/
 void CameraController::GetCameraToViewportRay(Ogre::Real x, Ogre::Real y, Ogre::Ray * out) const
 {
-	//camera->getCameraToViewportRay(x, y, out);
+	//Calculate the co-ords in 0.0-1.0 terms.
+	const Ogre::Vector2 pt(x / mViewPort->getActualWidth(), y / mViewPort->getActualHeight());
 
-	const Ogre::Vector2 pt(x / viewPort->getActualWidth(), y / viewPort->getActualHeight());
-	*out = OgreBites::TrayManager::screenToScene(camera, pt);
+	// Calculate and store the ray.
+	*out = OgreBites::TrayManager::screenToScene(mCamera, pt);
 }
 
 
-//getAspectRatio()
 /*M+M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++
-Method:		getAspectRatio(Ogre::Viewport* vp)
+Method:		getAspectRatio()
 
 Summary:	Gets an Ogre::Real value representing the aspect ratio of the passed in viewport.
-
-Args:		vp
-				the viewport to calculate the aspect ratio for.
 
 Returns:	Ogre::Real value representing the viewport vp's width/height
 M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---*/
 Ogre::Real CameraController::getAspectRatio()
 {
 	//Return an Ogre::Real number representing the width/height of the viewport.
-	return Ogre::Real(Ogre::Real(viewPort->getActualWidth()) / Ogre::Real(viewPort->getActualHeight()));
+	return Ogre::Real(Ogre::Real(mViewPort->getActualWidth()) / Ogre::Real(mViewPort->getActualHeight()));
 }
 

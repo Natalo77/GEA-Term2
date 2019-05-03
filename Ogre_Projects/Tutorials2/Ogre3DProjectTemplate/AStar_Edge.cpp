@@ -9,20 +9,21 @@
 #include "AStar_Edge.h"
 #include "AStar_Node.h"
 
+
 /*M+M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M
   Method:   AStar_Edge
 
   Summary:  Default Constructor for the AStar_Edge class.
 
-  Modifies: [none].
+  Modifies: [mNode, mCost].
 
   Returns:  AStar_Edge
 				the newly created AStar_Edge Object.
 M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M-M*/
 AStar_Edge::AStar_Edge()
 {
-	m_node = NULL;
-	m_cost = NULL;
+	mNode = NULL;
+	mCost = NULL;
 }
 
 
@@ -31,10 +32,12 @@ AStar_Edge::AStar_Edge()
 
   Summary:  Default DeConstructor for the AStar_Edge class.
 
-  Modifies: [none].
+  Modifies: [mNode].
 M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M-M*/
 AStar_Edge::~AStar_Edge()
 {
+	if (mNode)
+		delete mNode;
 }
 
 
@@ -48,15 +51,15 @@ AStar_Edge::~AStar_Edge()
 			float cost
 				the cost of this edge.
 
-  Modifies: [m_node, m_cost].
+  Modifies: [mNode, mCost].
 
   Returns:  AStar_Edge
 				the newly created AStar_Edge Object.
 M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M-M*/
 AStar_Edge::AStar_Edge(AStar_Node* node, float cost)
 {
-	m_node = node;
-	m_cost = cost;
+	mNode = node;
+	mCost = cost;
 }
 
 
@@ -72,7 +75,7 @@ AStar_Edge::AStar_Edge(AStar_Node* node, float cost)
 M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M-M*/
 float AStar_Edge::GetCost()
 {
-	return m_cost;
+	return mCost;
 }
 
 
@@ -88,5 +91,5 @@ float AStar_Edge::GetCost()
 M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M-M*/
 AStar_Node * AStar_Edge::GetNode()
 {
-	return m_node;
+	return mNode;
 }
