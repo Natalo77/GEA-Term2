@@ -21,6 +21,8 @@
 M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M-M*/
 AStar_Edge::AStar_Edge()
 {
+	m_node = NULL;
+	m_cost = NULL;
 }
 
 
@@ -53,6 +55,8 @@ AStar_Edge::~AStar_Edge()
 M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M-M*/
 AStar_Edge::AStar_Edge(AStar_Node* node, float cost)
 {
+	m_node = node;
+	m_cost = cost;
 }
 
 

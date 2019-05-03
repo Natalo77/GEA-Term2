@@ -75,7 +75,7 @@ private:
 
 	void SetupResources();
 
-	void Ogre3DApplication::setupUITray(const Ogre::String & name, Ogre::RenderWindow * window);
+	void setupUITray(const Ogre::String & name, Ogre::RenderWindow * window);
 
 private:
 	CameraController* camControl;

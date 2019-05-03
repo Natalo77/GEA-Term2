@@ -17,9 +17,10 @@
 CameraController::CameraController()
 {
 	scnMgr = nullptr;
-	camNode = nullptr;
+	camNode = NULL;
 	viewPort = nullptr;
 	scnMgr = nullptr;
+	camera = nullptr;
 }
 
 

@@ -39,6 +39,7 @@
 M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---*/
 Ogre3DApplication::Ogre3DApplication() : OgreBites::ApplicationContext("TutorialApp")
 {
+	inControl = NULL;
 }
 
 //~Ogre3DApplication()
@@ -226,8 +227,8 @@ void Ogre3DApplication::setup()
 		int xOffsetMultiplier = (zOffsetMultiplier % 2 == 0) ? (i % gridSize) * 2 : ((i % gridSize) * 2) + 1;
 		zOffsetMultiplier *= 2;
 
-		Ogre::Real xOffset = 60;
-		Ogre::Real zOffset = 50;
+		Ogre::Real xOffset = TileManager::xOffset;
+		Ogre::Real zOffset = TileManager::zOffset;
 
 		Vector3 position(xOffsetMultiplier * xOffset, 0, zOffsetMultiplier * zOffset);
 		Quaternion quat(Radian(Degree(-90)), Vector3::UNIT_X);
@@ -342,7 +343,7 @@ void Ogre3DApplication::buttonHit(OgreBites::Button * button)
 	}
 	else if (bttnName == "GoBTN")
 	{
-		// Go!
+		mAgent->PathFind(tileMgr);
 	}
 
 }

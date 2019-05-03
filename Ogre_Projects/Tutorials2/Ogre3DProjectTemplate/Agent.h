@@ -1,7 +1,12 @@
 #pragma once
 
 
+#ifndef _AGENT_H_
+#define _AGENT_H_
+
 class AStar_Node;
+class TileManager;
+#include "AList.h"
 namespace Ogre
 {
 	class Entity;
@@ -21,8 +26,12 @@ public:
 	void SetNode(AStar_Node * node);
 	AStar_Node* GetNode();
 
+	void PathFind(TileManager * tileMgr);
+
 private:
 	void Setup(Ogre::SceneManager *& scnMgr);
+
+	void Traverse(AList<AStar_Node*> *& path);
 
 private:
 	AStar_Node* mCurrentNode;
@@ -33,4 +42,6 @@ private:
 
 	Ogre::SceneNode* mSceneNode;
 };
+
+#endif
 

@@ -48,10 +48,10 @@ NodePriorityQueue::~NodePriorityQueue()
 
   Modifies: [underlying data structure].
 M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M-M*/
-void NodePriorityQueue::EnQueue(AStar_Node& element)
+void NodePriorityQueue::EnQueue(AStar_Node * element)
 {
 	if (this->empty())
-		this->push_back(&element);
+		this->push_back(element);
 	else
 	{
 		for (std::list<AStar_Node*>::iterator iter = this->begin();	//Iterator at start of AStar_Edge list.
@@ -59,10 +59,14 @@ void NodePriorityQueue::EnQueue(AStar_Node& element)
 			iter++)
 		{
 			AStar_Node* node = *iter;
-			if (element.getF() > node->getF())
+			if (element->getF() > node->getF())
 				continue;
 			else
-				this->insert(iter, &element);
+			{
+				this->insert(iter, element);
+				return;
+			}
+			
 		}
 	}
 }

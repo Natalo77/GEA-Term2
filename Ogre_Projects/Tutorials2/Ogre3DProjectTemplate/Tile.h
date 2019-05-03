@@ -41,6 +41,8 @@ public:
 	void SetGoal();
 	State GetState();
 
+	Ogre::Vector3 GetPosition();
+
 private:
 	inline void UpdateModel();
 

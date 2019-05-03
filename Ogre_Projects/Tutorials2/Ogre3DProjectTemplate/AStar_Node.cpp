@@ -29,7 +29,7 @@
 M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M-M*/
 AStar_Node::AStar_Node()
 {
-	m_neighbours = new std::vector<AStar_Edge*>();
+	m_neighbours = new std::vector<AStar_Edge>();
 	m_position = new Vector2(0, 0);
 	m_parent = nullptr;
 }
@@ -66,7 +66,7 @@ AStar_Node::~AStar_Node()
 M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M-M*/
 AStar_Node::AStar_Node(Vector2 * position)
 {
-	m_neighbours = new std::vector<AStar_Edge*>();
+	m_neighbours = new std::vector<AStar_Edge>();
 	m_position = position;
 	m_parent = nullptr;
 }
@@ -166,9 +166,15 @@ void AStar_Node::setH(float h)
 				a pointer to a vector containing all the neighbouring
 				edges of this node.
 M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M-M*/
-std::vector<AStar_Edge*>* AStar_Node::getNeighbours()
+std::vector<AStar_Edge>* AStar_Node::getNeighbours()
 {
 	return m_neighbours;
+}
+
+void AStar_Node::AddNeighbour(AStar_Node * node, float cost)
+{
+	AStar_Edge* edge = new AStar_Edge(node, cost);
+	m_neighbours->push_back(*edge);
 }
 
 

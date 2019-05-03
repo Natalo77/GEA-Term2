@@ -37,6 +37,6 @@ public:
 	NodePriorityQueue();
 	~NodePriorityQueue();
 
-	void EnQueue(AStar_Node& element);
+	void EnQueue(AStar_Node * element);
 };
 

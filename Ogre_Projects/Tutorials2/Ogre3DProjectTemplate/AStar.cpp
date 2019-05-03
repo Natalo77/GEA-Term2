@@ -59,7 +59,7 @@ AStar::~AStar()
 				A pointer to a AList containing a path from start to dest.
 				nullptr if no path could be found.
 M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M-M*/
-AList<AStar_Node>* AStar::AStarSearch(AStar_Node * start, AStar_Node * dest)
+AList<AStar_Node*>* AStar::AStarSearch(AStar_Node * start, AStar_Node * dest)
 {
 	// Initialize an open and closed list.
 	NodePriorityQueue* open = new NodePriorityQueue();
@@ -84,18 +84,18 @@ AList<AStar_Node>* AStar::AStarSearch(AStar_Node * start, AStar_Node * dest)
 			return ConstructPath(dest);
 
 		// Iterate over the currentNode's neighbours.
-		for (std::vector<AStar_Edge*>::iterator iter = currentNode->getNeighbours()->begin();	//Iterator at start of AStar_Edge list.
+		for (std::vector<AStar_Edge>::iterator iter = currentNode->getNeighbours()->begin();	//Iterator at start of AStar_Edge list.
 			iter != currentNode->getNeighbours()->end();										//Until iterator reaches end of list.
 			iter++)																				//Increment Iterator by one.
 		{
 			// Dereference the iterator.
-			AStar_Edge* edge = *iter;
+			AStar_Edge edge = *iter;
 
 			// Get the cost of the edge.
-			float distance = edge->GetCost();
+			float distance = edge.GetCost();
 
 			// Get a pointer to the edge's leading node.
-			AStar_Node* nextNode = edge->GetNode();
+			AStar_Node* nextNode = edge.GetNode();
 
 			// If the nextNode has not been visited.
 			if (!open->Contains(nextNode) && !closed->Contains(nextNode))
@@ -108,7 +108,7 @@ AList<AStar_Node>* AStar::AStarSearch(AStar_Node * start, AStar_Node * dest)
 				nextNode->setParent(currentNode);
 
 				// Then enqueue the nextNode to be visited.
-				open->EnQueue(*nextNode);
+				open->EnQueue(nextNode);
 			}
 			// if it has been visited and the cumulative distance + the edge cost is less than the nextNode's cumulative distance
 			// aka. the path is viable over an existing one.
@@ -123,7 +123,7 @@ AList<AStar_Node>* AStar::AStarSearch(AStar_Node * start, AStar_Node * dest)
 				closed->Remove(nextNode);
 
 				// then requeue it for the new path calculations
-				open->EnQueue(*nextNode);
+				open->EnQueue(nextNode);
 			}
 		}
 
@@ -155,7 +155,7 @@ float AStar::ComputeHeuristic(AStar_Node * n1, AStar_Node * n2)
 {
 	// This implementation simply returns the square of the euclidean distance
 	// between the two nodes. Square is used as comparison is the only function here.
-	return n1->getPosition()->squaredDistance(*n2->getPosition());
+	return n1->getPosition()->distance(*n2->getPosition());
 }
 
 /*M+M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M+++M
@@ -173,18 +173,18 @@ float AStar::ComputeHeuristic(AStar_Node * n1, AStar_Node * n2)
 				a list of nodes in reverse order (dest at the front) representing
 				the path to dest from the final node in the list.
 M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M---M-M*/
-AList<AStar_Node>* AStar::ConstructPath(AStar_Node * dest)
+AList<AStar_Node*>* AStar::ConstructPath(AStar_Node * dest)
 {
 	// Create a list to store the path in and add the dest node.
-	AList<AStar_Node>* path = new AList<AStar_Node>();
-	AStar_Node current = *dest;
+	AList<AStar_Node*>* path = new AList<AStar_Node*>();
+	AStar_Node* current = dest;
 	path->push_back(current);
 
 	// While there is still a parent to the current node.
-	while ( nullptr != current.getParent())
+	while ( nullptr != current->getParent())
 	{
 		// Update the current node with its parent.
-		current = *current.getParent();
+		current = current->getParent();
 
 		// and push it back onto the path list.
 		path->push_back(current);

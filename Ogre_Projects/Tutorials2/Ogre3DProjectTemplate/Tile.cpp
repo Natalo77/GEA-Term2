@@ -89,6 +89,12 @@ Tile::State Tile::GetState()
 }
 
 
+Ogre::Vector3 Tile::GetPosition()
+{
+	return node->_getDerivedPosition();
+}
+
+
 void Tile::ChangeMesh(Ogre::String &meshName, std::vector<Ogre::String> &materialNames)
 {
 	this->node->detachAllObjects();

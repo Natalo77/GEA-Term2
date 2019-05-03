@@ -90,10 +90,10 @@ class AStar_Node
 {
 private:
 	AStar_Node * m_parent;
-	float m_g;
-	float m_h;
+	float m_g = INFINITY;
+	float m_h = INFINITY;
 	bool m_visited = false;
-	std::vector<AStar_Edge*>* m_neighbours;
+	std::vector<AStar_Edge>* m_neighbours;
 	Vector2 * m_position;
 
 public:
@@ -110,7 +110,8 @@ public:
 	void setG(float);
 	void setH(float);
 
-	std::vector<AStar_Edge*>* getNeighbours();
+	std::vector<AStar_Edge>* getNeighbours();
+	void AddNeighbour(AStar_Node*, float cost);
 
 	bool isVisited();
 	void setVisited(bool);

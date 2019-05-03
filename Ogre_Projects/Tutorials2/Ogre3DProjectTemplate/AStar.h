@@ -54,12 +54,12 @@ public:
 	AStar();
 	~AStar();
 
-	static AList<AStar_Node>* AStarSearch(AStar_Node* start, AStar_Node* dest);
+	static AList<AStar_Node*>* AStarSearch(AStar_Node* start, AStar_Node* dest);
 
 private:
 	static float ComputeHeuristic(AStar_Node* n1, AStar_Node* n2);
 
-	static AList<AStar_Node>* ConstructPath(AStar_Node* dest);
+	static AList<AStar_Node*>* ConstructPath(AStar_Node* dest);
 };
 
 #endif

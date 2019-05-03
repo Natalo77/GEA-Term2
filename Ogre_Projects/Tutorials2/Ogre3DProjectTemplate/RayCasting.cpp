@@ -109,7 +109,7 @@ bool RayCasting::RayCast(
 			}
 
 			// free the verticies and indicies memory
-			delete[] vertices;
+			delete vertices;
 			delete[] indices;
 
 			// if we found a new closest raycast for this object, update the

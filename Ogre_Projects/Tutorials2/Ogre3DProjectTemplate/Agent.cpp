@@ -1,6 +1,8 @@
 #include "Agent.h"
 
 #include "AStar_Node.h"
+#include "AStar.h"
+#include "TileManager.h"
 
 
 #include <OgreEntity.h>
@@ -66,6 +68,16 @@ AStar_Node * Agent::GetNode()
 }
 
 
+void Agent::PathFind(TileManager * tileMgr)
+{
+	tileMgr->SetupEdges();
+	AList<AStar_Node*>* path = AStar::AStarSearch(mCurrentNode, tileMgr->GetGoalNode());
+	Traverse(path);
+	tileMgr->TearDownEdges();
+	path->clear();
+}
+
+
 void Agent::Setup(Ogre::SceneManager *& scnMgr)
 {
 	g_scnMgr = scnMgr;
@@ -76,4 +88,15 @@ void Agent::Setup(Ogre::SceneManager *& scnMgr)
 	mSceneNode->translate(Ogre::Vector3(-100, 0, -100));
 	mSceneNode->setScale(Ogre::Vector3(10, 10, 10));
 	mEntity->setVisible(false);
+}
+
+void Agent::Traverse(AList<AStar_Node*>*& path)
+{
+	for (std::reverse_iterator<AList<AStar_Node*>::iterator> iter = path->rbegin();
+		iter != path->rend();
+		iter++)
+	{
+		AStar_Node* node = *iter;
+		SetNode(node);
+	}
 }
